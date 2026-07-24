@@ -1,0 +1,59 @@
+{
+  "hero": {
+    "headingLead": "Et",
+    "headingBurgundy": "varmt",
+    "headingMiddle": "fellesskap for",
+    "headingGold": "brass",
+    "headingSuffix": "-entusiaster",
+    "description": "Vi er en familie som deler lidenskapen for brassmusikk: konserter, vennskap og samspill på høyt nivå, midt i Bergen.",
+    "primaryButtonLabel": "Se program",
+    "secondaryButtonLabel": "Bli medlem",
+    "facts": "Elitedivisjonen i NM Brass · Grunnlagt 1964 · Bergen"
+  },
+  "events": {
+    "badge": "📅 Sesongprogram",
+    "heading": "Kommende konserter",
+    "itemLinkLabel": "Les mer →",
+    "allLinkLabel": "Se hele programmet →"
+  },
+  "news": {
+    "badge": "📰 Siste nytt",
+    "heading": "Hva skjer hos oss?",
+    "featuredLinkLabel": "Les mer →",
+    "allLinkLabel": "Se alle nyheter →"
+  },
+  "gallery": {
+    "badge": "📷 Bildealbum",
+    "heading": "Minner fra korpset",
+    "allLinkLabel": "Se alle bilder →",
+    "items": [
+      {
+        "image": "/images/gallery/photo-1.jpg",
+        "imageAlt": "Tertnes Brass på konsert"
+      },
+      {
+        "image": "/images/gallery/photo-2.jpg",
+        "imageAlt": "Musikere i Tertnes Brass"
+      },
+      {
+        "image": "/images/gallery/photo-3.jpg",
+        "imageAlt": "Tertnes Brass på øvelse"
+      },
+      {
+        "image": "/images/gallery/photo-4.jpg",
+        "imageAlt": "Arrangement med Tertnes Brass"
+      },
+      {
+        "image": "/images/gallery/photo-5.jpg",
+        "imageAlt": "Fellesskapet i Tertnes Brass"
+      }
+    ]
+  },
+  "support": {
+    "badge": "❤️ Støtt kulturlivet",
+    "heading": "Bli en del av laget vårt",
+    "description": "Som sponsor bidrar du til å holde brassmusikken levende i Bergen. Vi setter stor pris på støtte fra lokale bedrifter og enkeltpersoner som tror på kraften i musikk og fellesskap.",
+    "primaryButtonLabel": "Bli sponsor",
+    "secondaryButtonLabel": "Les mer"
+  }
+}

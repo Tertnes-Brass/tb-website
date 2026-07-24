@@ -4,10 +4,11 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev --port 3000",
-    "check": "astro check",
-    "build": "astro check && astro build",
+    "check:baseline": "bun scripts/check-astro-baseline.mjs",
+    "check": "bun run check:baseline && astro check",
+    "build": "bun run check && astro build",
     "preview": "astro preview",
-    "test": "astro check",
+    "test": "bun run check",
     "deploy": "bun run build && wrangler deploy",
     "deploy:dry-run": "bun run build && wrangler deploy --dry-run"
   },

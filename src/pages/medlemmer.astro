@@ -1,8 +1,30 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import PlaceholderPage from '../components/PlaceholderPage.astro'
+import { members } from '../content/content'
 ---
 
 <BaseLayout title="Medlemmer" description="Medlemmer i Tertnes Brass.">
-  <PlaceholderPage title="Medlemmer" />
+  <PlaceholderPage
+    title="Medlemmer"
+    description="Medlemmer som er publisert i korpsets medlemsoversikt."
+  >
+    {
+      members.length > 0 ? (
+        <ul class="placeholder-page-list">
+          {members.map((member) => (
+            <li class="placeholder-page-list-item">
+              <p class="placeholder-page-item-meta">{member.section}</p>
+              <h2 class="placeholder-page-item-title">{member.name}</h2>
+              <p class="placeholder-page-item-description">
+                {member.role}{member.bio ? ` · ${member.bio}` : ''}
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="placeholder-page-empty">Medlemsoversikten blir oppdatert.</p>
+      )
+    }
+  </PlaceholderPage>
 </BaseLayout>

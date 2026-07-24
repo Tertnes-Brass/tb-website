@@ -1,7 +1,7 @@
 media:
   label: Bilder
-  input: public/images/uploads
-  output: /images/uploads
+  input: public/images
+  output: /images
   rename: safe
   categories: [image]
 
@@ -17,6 +17,239 @@ settings:
       rename: "innhold: gi nytt navn til {oldPath}"
 
 content:
+  - name: sider
+    label: Faste sider
+    type: group
+    items:
+      - name: forside
+        label: Forside
+        type: file
+        path: src/content/pages/home.json
+        format: json
+        operations:
+          delete: false
+        fields:
+          - name: hero
+            label: Toppfelt
+            type: object
+            required: true
+            fields:
+              - name: headingLead
+                label: Overskrift – innledning
+                type: string
+                required: true
+                description: "Teksten før det burgunderfargede ordet. Eksempel: Et."
+                options:
+                  maxlength: 40
+              - name: headingBurgundy
+                label: Overskrift – burgunder tekst
+                type: string
+                required: true
+                description: Dette ordet eller uttrykket vises i burgunder.
+                options:
+                  maxlength: 40
+              - name: headingMiddle
+                label: Overskrift – midttekst
+                type: string
+                required: true
+                description: Teksten mellom den burgunderfargede og gullfargede teksten.
+                options:
+                  maxlength: 80
+              - name: headingGold
+                label: Overskrift – gulltekst
+                type: string
+                required: true
+                description: Dette ordet eller uttrykket vises i gull.
+                options:
+                  maxlength: 40
+              - name: headingSuffix
+                label: Overskrift – avslutning
+                type: string
+                required: true
+                description: "Teksten rett etter gullteksten. Ta med bindestrek hvis den skal brukes."
+                options:
+                  maxlength: 60
+              - name: description
+                label: Introduksjon
+                type: text
+                required: true
+                options:
+                  minlength: 40
+                  maxlength: 400
+              - name: primaryButtonLabel
+                label: Tekst på programknappen
+                type: string
+                required: true
+                description: Knappen går alltid til Program.
+                options:
+                  maxlength: 30
+              - name: secondaryButtonLabel
+                label: Tekst på medlemsknappen
+                type: string
+                required: true
+                description: Knappen går alltid til Bli medlem.
+                options:
+                  maxlength: 30
+              - name: facts
+                label: Faktalinje
+                type: string
+                required: true
+                description: Kort faktalinje under knappene.
+                options:
+                  maxlength: 120
+
+          - name: events
+            label: Konsertseksjon
+            type: object
+            required: true
+            fields:
+              - name: badge
+                label: Liten overskrift
+                type: string
+                required: true
+                options:
+                  maxlength: 60
+              - name: heading
+                label: Overskrift
+                type: string
+                required: true
+                options:
+                  maxlength: 80
+              - name: itemLinkLabel
+                label: Tekst på konsertlenker
+                type: string
+                required: true
+                options:
+                  maxlength: 30
+              - name: allLinkLabel
+                label: Tekst på «se alle»-lenken
+                type: string
+                required: true
+                options:
+                  maxlength: 40
+
+          - name: news
+            label: Nyhetsseksjon
+            type: object
+            required: true
+            fields:
+              - name: badge
+                label: Liten overskrift
+                type: string
+                required: true
+                options:
+                  maxlength: 60
+              - name: heading
+                label: Overskrift
+                type: string
+                required: true
+                options:
+                  maxlength: 80
+              - name: featuredLinkLabel
+                label: Tekst på hovedsakens lenke
+                type: string
+                required: true
+                options:
+                  maxlength: 30
+              - name: allLinkLabel
+                label: Tekst på «se alle»-lenken
+                type: string
+                required: true
+                options:
+                  maxlength: 40
+
+          - name: gallery
+            label: Bildealbum
+            type: object
+            required: true
+            fields:
+              - name: badge
+                label: Liten overskrift
+                type: string
+                required: true
+                options:
+                  maxlength: 60
+              - name: heading
+                label: Overskrift
+                type: string
+                required: true
+                options:
+                  maxlength: 80
+              - name: allLinkLabel
+                label: Tekst på lenken under bildene
+                type: string
+                required: true
+                description: Lenken går alltid til Nyheter.
+                options:
+                  maxlength: 40
+              - name: items
+                label: Bilder
+                type: object
+                required: true
+                list:
+                  min: 5
+                  max: 5
+                  collapsible:
+                    collapsed: true
+                    summary: "{imageAlt}"
+                description: Forsiden bruker alltid fem bilder. Rekkefølgen bestemmer plasseringen.
+                fields:
+                  - name: image
+                    label: Bilde
+                    type: image
+                    required: true
+                    options:
+                      path: uploads/homepage
+                      extensions: [jpg, jpeg, png, webp]
+                      rename: safe
+                  - name: imageAlt
+                    label: Bildetekst for skjermleser
+                    type: string
+                    required: true
+                    description: Beskriv kort hva som er synlig i bildet.
+                    options:
+                      minlength: 10
+                      maxlength: 160
+
+          - name: support
+            label: Støtt oss-seksjon
+            type: object
+            required: true
+            fields:
+              - name: badge
+                label: Liten overskrift
+                type: string
+                required: true
+                options:
+                  maxlength: 60
+              - name: heading
+                label: Overskrift
+                type: string
+                required: true
+                options:
+                  maxlength: 100
+              - name: description
+                label: Beskrivelse
+                type: text
+                required: true
+                options:
+                  minlength: 40
+                  maxlength: 500
+              - name: primaryButtonLabel
+                label: Tekst på sponsorknappen
+                type: string
+                required: true
+                description: Knappen går alltid til Støtt oss.
+                options:
+                  maxlength: 30
+              - name: secondaryButtonLabel
+                label: Tekst på «les mer»-knappen
+                type: string
+                required: true
+                description: Knappen går alltid til Om oss.
+                options:
+                  maxlength: 30
+
   - name: redaksjonelt
     label: Redaksjonelt innhold
     type: group
@@ -104,7 +337,7 @@ content:
             type: image
             description: Liggende format anbefales.
             options:
-              path: concerts
+              path: uploads/concerts
               extensions: [jpg, jpeg, png, webp]
               rename: safe
           - name: imageAlt
@@ -199,7 +432,7 @@ content:
             type: image
             required: true
             options:
-              path: news
+              path: uploads/news
               extensions: [jpg, jpeg, png, webp]
               rename: safe
           - name: imageAlt
@@ -275,7 +508,7 @@ content:
             type: image
             description: Frivillig. Bruk et ryddig portrett i stående format.
             options:
-              path: members
+              path: uploads/members
               extensions: [jpg, jpeg, png, webp]
               rename: safe
           - name: imageAlt

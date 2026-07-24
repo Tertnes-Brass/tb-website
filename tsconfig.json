@@ -9,11 +9,6 @@
     }
   },
   "exclude": [
-    "src/components/NewsSection.tsx",
-    "src/components/PlaceholderPage.tsx",
-    "src/components/ProgramCard.tsx",
-    "src/data/concerts.test.ts",
-    "src/routes/medlemmer.tsx",
-    "src/routes/nyheter.tsx"
+    "src/data/concerts.test.ts"
   ]
 }
