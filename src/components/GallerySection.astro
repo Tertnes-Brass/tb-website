@@ -1,0 +1,40 @@
+---
+import './GallerySection.css'
+
+interface GalleryItem {
+  image: string
+  alt: string
+  span: 1 | 2
+}
+
+const galleryItems: GalleryItem[] = [
+  { image: '/images/gallery/photo-1.jpg', alt: 'Tertnes Brass på konsert', span: 2 },
+  { image: '/images/gallery/photo-2.jpg', alt: 'Musikere i Tertnes Brass', span: 2 },
+  { image: '/images/gallery/photo-3.jpg', alt: 'Tertnes Brass på øvelse', span: 1 },
+  { image: '/images/gallery/photo-4.jpg', alt: 'Arrangement med Tertnes Brass', span: 1 },
+  { image: '/images/gallery/photo-5.jpg', alt: 'Fellesskapet i Tertnes Brass', span: 2 },
+]
+---
+
+<section class="gallery-section">
+  <div class="gallery-container">
+    <div class="section-header">
+      <div class="section-badge">📷 Bildealbum</div>
+      <h2 class="section-title">Minner fra korpset</h2>
+    </div>
+
+    <div class="gallery-grid">
+      {
+        galleryItems.map((item) => (
+          <figure class:list={['gallery-item', `gallery-item-span-${item.span}`]}>
+            <img src={item.image} alt={item.alt} class="gallery-image" loading="lazy" />
+          </figure>
+        ))
+      }
+    </div>
+
+    <div class="gallery-footer">
+      <a href="/nyheter/" class="view-all-button">Se alle bilder →</a>
+    </div>
+  </div>
+</section>

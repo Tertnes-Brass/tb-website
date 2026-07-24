@@ -6,18 +6,25 @@
   transition: all 0.3s ease;
 }
 
-.program-card.expanded {
+.program-card[open] {
   box-shadow: 0 8px 32px var(--shadow);
 }
 
 .program-card-header {
+  display: block;
+  list-style: none;
   width: 100%;
   background: none;
   border: none;
   padding: var(--spacing-lg);
   cursor: pointer;
   text-align: left;
+  font-family: inherit;
   transition: background-color 0.2s ease;
+}
+
+.program-card-header::-webkit-details-marker {
+  display: none;
 }
 
 .program-card-header:hover {
@@ -56,6 +63,7 @@
 }
 
 .program-card-title {
+  display: block;
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--text);
@@ -91,9 +99,17 @@
   transition: all 0.2s ease;
 }
 
+.expand-icon::before {
+  content: "+";
+}
+
+.program-card[open] .expand-icon::before {
+  content: "−";
+}
+
 .program-card-header:hover .expand-icon {
   background-color: var(--burgundy);
-  color: white;
+  color: var(--on-burgundy);
   transform: scale(1.1);
 }
 
@@ -232,7 +248,7 @@
 
 .facebook-link:hover {
   background-color: var(--burgundy);
-  color: white;
+  color: var(--on-burgundy);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px var(--shadow);
 }

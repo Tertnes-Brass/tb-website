@@ -39,7 +39,7 @@
 
 /* Dark mode enhancement */
 [data-theme="dark"] .footer-logo-image {
-  filter: drop-shadow(0 0 6px rgba(229, 208, 136, 0.12));
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--gold) 12%, transparent));
 }
 
 .footer-logo-text {
@@ -133,7 +133,7 @@
 
 .social-icon:hover {
   background-color: var(--burgundy);
-  color: white;
+  color: var(--on-burgundy);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px var(--shadow);
 }

@@ -1,0 +1,48 @@
+---
+import { concerts } from '../data/concerts'
+import './EventsSection.css'
+
+const featuredConcerts = concerts.slice(0, 3)
+---
+
+<section class="events-section">
+  <div class="events-container">
+    <div class="section-header">
+      <div class="section-badge">📅 Sesongprogram</div>
+      <h2 class="section-title">Kommende konserter</h2>
+    </div>
+
+    <div class="events-grid">
+      {
+        featuredConcerts.map((concert) => (
+          <article class="event-card">
+            {concert.image ? (
+              <img
+                src={concert.image.src}
+                srcset={concert.image.srcSet}
+                alt={concert.image.alt}
+                width="380"
+                height="240"
+                class="event-image"
+                loading="lazy"
+              />
+            ) : (
+              <div class="event-emoji" aria-hidden="true">{concert.emoji}</div>
+            )}
+            <div class="event-date">{concert.date}</div>
+            <h3 class="event-title">{concert.title}</h3>
+            <div class="event-venue">
+              <span class="venue-icon" aria-hidden="true">📍</span>
+              {concert.venue}
+            </div>
+            <a href={`/program/#${concert.id}`} class="event-link">Les mer →</a>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="events-footer">
+      <a href="/program/" class="view-all-link">Se hele programmet →</a>
+    </div>
+  </div>
+</section>

@@ -10,25 +10,19 @@
   --gold: #C4A035;
   --gold-soft: #D9C068;
   --gold-pastel: #F5EBC8;
+  --gold-text: #A5851F; /* AA-safe gold for large text on light backgrounds */
   --text: #3A2A2E;
   --text-soft: #695860;
   --text-muted: #9A8A8E;
   --shadow: rgba(142, 74, 91, 0.08);
-  --demo-api-content-max-width: 42rem;
-  --demo-api-content-padding: calc(var(--spacing-2xl) * 2);
-  --demo-api-radius-lg: var(--spacing-sm);
-  --demo-api-radius-md: var(--spacing-xs);
-  --demo-api-blur-lg: var(--spacing-sm);
-  --demo-api-blur-sm: var(--spacing-xs);
-  --demo-api-border-width: 1px;
-  --demo-api-text: #FFFFFF;
-  --demo-api-content-bg: rgba(0, 0, 0, 0.5);
-  --demo-api-content-border: rgba(0, 0, 0, 0.1);
-  --demo-api-content-shadow: rgba(0, 0, 0, 0.1);
-  --demo-api-item-bg: rgba(255, 255, 255, 0.1);
-  --demo-api-item-border: rgba(255, 255, 255, 0.2);
-  --demo-api-item-shadow: rgba(255, 255, 255, 0.1);
-  --demo-api-item-font-size: 1.2rem;
+  --header-bg: rgba(255, 250, 247, 0.95);
+  --overlay: rgba(0, 0, 0, 0.5);
+  --decorative-light: rgba(255, 255, 255, 0.1);
+  --decorative-medium: rgba(255, 255, 255, 0.2);
+  --on-burgundy: #FFFAF7;
+  --on-gold: #2A1E21;
+  --fixed-white: #FFFFFF;
+  --strong-shadow: rgba(0, 0, 0, 0.2);
 
   /* Spacing */
   --spacing-xs: 0.5rem;
@@ -50,17 +44,25 @@
   --gold: #E5D088;
   --gold-soft: #C4A035;
   --gold-pastel: #3A3525;
+  --gold-text: #E5D088;
   --text: #F5EDE8;
   --text-soft: #C9BDC0;
   --text-muted: #8A7A7E;
   --shadow: rgba(0, 0, 0, 0.3);
-  --demo-api-text: #F5EDE8;
-  --demo-api-content-bg: rgba(0, 0, 0, 0.55);
-  --demo-api-content-border: rgba(245, 237, 232, 0.12);
-  --demo-api-content-shadow: rgba(0, 0, 0, 0.35);
-  --demo-api-item-bg: rgba(245, 237, 232, 0.08);
-  --demo-api-item-border: rgba(245, 237, 232, 0.18);
-  --demo-api-item-shadow: rgba(245, 237, 232, 0.08);
+  --header-bg: rgba(28, 21, 23, 0.95);
+  --on-burgundy: #2A1E21;
+}
+
+/* Fixed colors for text and UI on top of the dark hero artwork.
+   The artwork is dark in both themes, so these do not change with theme. */
+:root {
+  --stage-text: #F5EDE8;
+  --stage-text-soft: rgba(245, 237, 232, 0.85);
+  --stage-text-muted: rgba(245, 237, 232, 0.66);
+  --stage-burgundy: #D4A3B0;
+  --stage-gold: #E5D088;
+  --stage-ink: #2A1E21;
+  --stage-scrim: rgba(26, 18, 16, 0.82);
 }
 
 * {
@@ -69,9 +71,15 @@
 
 html {
   overflow-x: hidden;
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 body {
+  min-height: 100vh;
   margin: 0;
   font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -82,6 +90,21 @@ body {
   color: var(--text);
   transition: background-color 0.4s ease, color 0.4s ease;
   overflow-x: hidden;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--burgundy);
+  outline-offset: 3px;
 }
 
 code {

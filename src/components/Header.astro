@@ -1,0 +1,197 @@
+---
+import './Header.css'
+
+interface NavigationItem {
+  href: string
+  label: string
+}
+
+const primaryNavigation: NavigationItem[] = [
+  { href: '/', label: 'Hjem' },
+  { href: '/program/', label: 'Program' },
+  { href: '/nyheter/', label: 'Nyheter' },
+  { href: '/medlemmer/', label: 'Medlemmer' },
+  { href: '/styret/', label: 'Styret' },
+  { href: '/om-oss/', label: 'Om oss' },
+]
+
+const secondaryNavigation: NavigationItem[] = [
+  { href: '/bli-medlem/', label: 'Bli medlem' },
+  { href: '/stott-oss/', label: 'Støtt oss' },
+  { href: '/kontakt/', label: 'Kontakt' },
+]
+
+const allNavigation = [...primaryNavigation, ...secondaryNavigation]
+const currentPath = Astro.url.pathname
+const isActive = (href: string): boolean =>
+  href === '/' ? currentPath === '/' : currentPath.startsWith(href)
+---
+
+<header class="header">
+  <div class="header-container">
+    <a href="/" class="logo" aria-label="Tertnes Brass – gå til forsiden">
+      <img
+        src="/images/logo-56.png"
+        srcset="/images/logo-112.png 2x"
+        alt=""
+        width="56"
+        height="56"
+        class="logo-image"
+      />
+      <span class="logo-text">
+        <span class="logo-name">Tertnes Brass</span>
+        <span class="logo-tagline">Bergen • Siden 1964</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Hovedmeny">
+      {
+        primaryNavigation.map((item) => (
+          <a
+            href={item.href}
+            class:list={['nav-link', { active: isActive(item.href) }]}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+
+      <details class="dropdown">
+        <summary class="dropdown-toggle">Mer</summary>
+        <div class="dropdown-menu">
+          {
+            secondaryNavigation.map((item) => (
+              <a
+                href={item.href}
+                class:list={['dropdown-item', { active: isActive(item.href) }]}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            ))
+          }
+        </div>
+      </details>
+    </nav>
+
+    <div class="header-actions">
+      <button class="theme-toggle" type="button" aria-label="Bytt til mørk modus">
+        <span class="theme-toggle-track" aria-hidden="true">
+          <span class="theme-toggle-icons">
+            <svg class="theme-toggle-icon moon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg class="theme-toggle-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+            </svg>
+          </span>
+          <span class="theme-toggle-knob"></span>
+        </span>
+      </button>
+
+      <a href="/bli-medlem/" class="cta-button desktop-cta">Bli medlem</a>
+
+      <button
+        class="hamburger-button"
+        type="button"
+        aria-label="Åpne meny"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </div>
+
+  <button class="mobile-menu-overlay" type="button" aria-label="Lukk meny" hidden></button>
+
+  <aside id="mobile-menu" class="mobile-menu" aria-hidden="true" inert>
+    <div class="mobile-menu-header">
+      <span class="mobile-menu-title">Meny</span>
+      <button class="mobile-menu-close" type="button" aria-label="Lukk meny">×</button>
+    </div>
+    <nav class="mobile-nav" aria-label="Mobilmeny">
+      {
+        allNavigation.map((item, index) => (
+          <>
+            {index === primaryNavigation.length && <div class="mobile-nav-divider" />}
+            <a
+              href={item.href}
+              class:list={['mobile-nav-link', { active: isActive(item.href) }]}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </>
+        ))
+      }
+    </nav>
+    <div class="mobile-menu-footer">
+      <a href="/bli-medlem/" class="cta-button mobile-cta">Bli medlem</a>
+    </div>
+  </aside>
+</header>
+
+<script>
+  const root = document.documentElement
+  const themeToggle = document.querySelector<HTMLButtonElement>('.theme-toggle')
+  const menuToggle = document.querySelector<HTMLButtonElement>('.hamburger-button')
+  const menuClose = document.querySelector<HTMLButtonElement>('.mobile-menu-close')
+  const menuOverlay = document.querySelector<HTMLButtonElement>('.mobile-menu-overlay')
+  const mobileMenu = document.querySelector<HTMLElement>('.mobile-menu')
+
+  const updateThemeLabel = (): void => {
+    const dark = root.dataset.theme === 'dark'
+    themeToggle?.setAttribute('aria-label', dark ? 'Bytt til lys modus' : 'Bytt til mørk modus')
+  }
+
+  const toggleTheme = (): void => {
+    const dark = root.dataset.theme === 'dark'
+    if (dark) {
+      delete root.dataset.theme
+      localStorage.setItem('theme', 'light')
+    } else {
+      root.dataset.theme = 'dark'
+      localStorage.setItem('theme', 'dark')
+    }
+    updateThemeLabel()
+  }
+
+  const setMenuOpen = (open: boolean): void => {
+    menuToggle?.setAttribute('aria-expanded', String(open))
+    menuToggle?.setAttribute('aria-label', open ? 'Lukk meny' : 'Åpne meny')
+    menuToggle?.querySelectorAll('.hamburger-line').forEach((line) => {
+      line.classList.toggle('open', open)
+    })
+    mobileMenu?.classList.toggle('open', open)
+    mobileMenu?.setAttribute('aria-hidden', String(!open))
+    if (mobileMenu) mobileMenu.inert = !open
+    if (menuOverlay) menuOverlay.hidden = !open
+    document.body.classList.toggle('menu-open', open)
+    if (open) menuClose?.focus()
+  }
+
+  updateThemeLabel()
+  themeToggle?.addEventListener('click', toggleTheme)
+  menuToggle?.addEventListener('click', () => {
+    setMenuOpen(menuToggle.getAttribute('aria-expanded') !== 'true')
+  })
+  menuClose?.addEventListener('click', () => {
+    setMenuOpen(false)
+    menuToggle?.focus()
+  })
+  menuOverlay?.addEventListener('click', () => setMenuOpen(false))
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMenuOpen(false))
+  })
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menuToggle?.getAttribute('aria-expanded') === 'true') {
+      setMenuOpen(false)
+      menuToggle.focus()
+    }
+  })
+</script>

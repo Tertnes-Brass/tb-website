@@ -17,6 +17,7 @@
 }
 
 .gallery-item {
+  margin: 0;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 4px 16px var(--shadow);
@@ -24,6 +25,10 @@
   cursor: pointer;
   position: relative;
   background-color: var(--burgundy-pastel);
+}
+
+.gallery-item-span-2 {
+  grid-column: span 2;
 }
 
 .gallery-item:hover {
@@ -65,7 +70,7 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 16px var(--shadow);
   background-color: var(--burgundy);
-  color: white;
+  color: var(--on-burgundy);
 }
 
 /* Responsive */

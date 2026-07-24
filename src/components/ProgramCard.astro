@@ -1,0 +1,108 @@
+---
+import type { Concert } from '../data/concerts'
+import './ProgramCard.css'
+
+interface Props {
+  concert: Concert
+}
+
+const { concert } = Astro.props
+const isTBA = concert.status === 'tba'
+---
+
+<details id={concert.id} class="program-card">
+  <summary class="program-card-header">
+    <span class="program-card-preview">
+      {
+        concert.image ? (
+          <img
+            src={concert.image.src}
+            srcset={concert.image.srcSet}
+            alt={concert.image.alt}
+            width="120"
+            height="80"
+            class="program-card-image"
+            loading="lazy"
+          />
+        ) : (
+          <span class="program-card-emoji" aria-hidden="true">{concert.emoji}</span>
+        )
+      }
+
+      <span class="program-card-info">
+        <span class="program-card-title" role="heading" aria-level="2">{concert.title}</span>
+        <span class="program-card-meta">
+          <span class="meta-item">📅 {concert.date}</span>
+          {concert.time !== 'TBA' && <span class="meta-item">🕐 {concert.time}</span>}
+          <span class="meta-item">📍 {concert.venue}</span>
+        </span>
+      </span>
+
+      <span class="expand-icon" aria-hidden="true"></span>
+    </span>
+  </summary>
+
+  <div class="program-card-details">
+    {
+      isTBA ? (
+        <div class="tba-message">
+          <p class="tba-text">Mer informasjon kommer snart</p>
+          <p class="tba-description">
+            Vi jobber med å planlegge dette arrangementet. Følg med for oppdateringer!
+          </p>
+        </div>
+      ) : (
+        <>
+          {concert.description && (
+            <div class="detail-section">
+              <p class="concert-description">{concert.description}</p>
+            </div>
+          )}
+
+          {concert.program && concert.program.length > 0 && (
+            <div class="detail-section">
+              <h3 class="detail-heading">Program</h3>
+              <ul class="program-list">
+                {concert.program.map((item) => (
+                  <li class:list={['program-item', item.type === 'band' ? 'program-band' : 'program-piece']}>
+                    {item.type === 'band' && <span class="band-icon" aria-hidden="true">🎺</span>}
+                    <div class="program-content">
+                      <strong class="program-title">{item.title}</strong>
+                      {item.composer && <span class="program-meta"> – {item.composer}</span>}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <p class="extra-info">Kaffe og kake blir det også! 🍰☕️</p>
+            </div>
+          )}
+
+          {(concert.ticketPrice || concert.childrenFree) && (
+            <div class="detail-section">
+              <h3 class="detail-heading">Billetter</h3>
+              <p class="ticket-info">
+                {concert.ticketPrice && (
+                  <span class="ticket-price">Inngangsbillett: {concert.ticketPrice}</span>
+                )}
+                {concert.childrenFree && <span class="ticket-note"> • Barn har gratis inngang</span>}
+              </p>
+            </div>
+          )}
+
+          {concert.facebookEventUrl && (
+            <div class="detail-section">
+              <a
+                href={concert.facebookEventUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="facebook-link"
+              >
+                Se arrangementet på Facebook →
+              </a>
+            </div>
+          )}
+        </>
+      )
+    }
+  </div>
+</details>

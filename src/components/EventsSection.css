@@ -139,7 +139,7 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 16px var(--shadow);
   background-color: var(--burgundy);
-  color: white;
+  color: var(--on-burgundy);
 }
 
 /* Responsive */

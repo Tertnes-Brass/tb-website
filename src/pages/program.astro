@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import ProgramCard from '../components/ProgramCard.astro'
+import { concerts } from '../data/concerts'
+import '../routes/program.css'
+---
+
+<BaseLayout
+  title="Program"
+  description="Se kommende konserter og arrangementer med Tertnes Brass i Bergen."
+>
+  <main class="program-page">
+    <div class="program-container">
+      <header class="program-header">
+        <div class="program-badge">📅 Sesongprogram 2026</div>
+        <h1 class="program-title">Kommende konserter</h1>
+        <p class="program-description">
+          Velkommen til våre konserter! Åpne en konsert for å se detaljer om program, billetter
+          og mer informasjon.
+        </p>
+      </header>
+
+      <div class="program-grid">
+        {concerts.map((concert) => <ProgramCard concert={concert} />)}
+      </div>
+
+      <footer class="program-footer">
+        <p class="footer-note">
+          Har du spørsmål? Ta kontakt med oss på <a
+            href="mailto:tb@tertnesbrass.no"
+            class="email-link">tb@tertnesbrass.no</a
+          >.
+        </p>
+      </footer>
+    </div>
+  </main>
+</BaseLayout>

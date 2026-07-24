@@ -16,7 +16,7 @@
 .decorative-blob {
   position: absolute;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--decorative-light);
   pointer-events: none;
 }
 
@@ -59,8 +59,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
+  background-color: var(--decorative-medium);
+  color: var(--fixed-white);
   border-radius: 50px;
   font-weight: 600;
   font-size: 0.9rem;
@@ -70,7 +70,7 @@
 .sponsor-heading {
   font-size: 3rem;
   font-weight: 800;
-  color: white;
+  color: var(--fixed-white);
   margin: 0;
   line-height: 1.2;
 }
@@ -78,7 +78,7 @@
 .sponsor-description {
   font-size: 1.1rem;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.95);
+  color: color-mix(in srgb, var(--fixed-white) 95%, transparent);
   margin: 0;
 }
 
@@ -94,7 +94,7 @@
   padding: 1rem 2rem;
   border-radius: 50px;
   background-color: var(--gold);
-  color: white;
+  color: var(--on-gold);
   text-decoration: none;
   font-weight: 700;
   font-size: 1rem;
@@ -103,7 +103,7 @@
 
 .button-gold:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 24px var(--strong-shadow);
   background-color: var(--gold-soft);
 }
 
@@ -111,8 +111,8 @@
   padding: 1rem 2rem;
   border-radius: 50px;
   background-color: transparent;
-  color: white;
-  border: 2px solid white;
+  color: var(--fixed-white);
+  border: 2px solid var(--fixed-white);
   text-decoration: none;
   font-weight: 700;
   font-size: 1rem;
@@ -120,7 +120,7 @@
 }
 
 .button-outline:hover {
-  background-color: white;
+  background-color: var(--fixed-white);
   color: var(--burgundy);
   transform: translateY(-2px);
 }
