@@ -1,5 +1,8 @@
 ---
+import { homePage } from '../content/content'
 import './SponsorCTA.css'
+
+const { support } = homePage
 ---
 
 <section class="sponsor-cta">
@@ -9,15 +12,12 @@ import './SponsorCTA.css'
     <div class="decorative-blob blob-3"></div>
 
     <div class="sponsor-content">
-      <div class="sponsor-badge">❤️ Støtt kulturlivet</div>
-      <h2 class="sponsor-heading">Bli en del av laget vårt</h2>
-      <p class="sponsor-description">
-        Som sponsor bidrar du til å holde brassmusikken levende i Bergen. Vi setter stor pris på
-        støtte fra lokale bedrifter og enkeltpersoner som tror på kraften i musikk og fellesskap.
-      </p>
+      <div class="sponsor-badge">{support.badge}</div>
+      <h2 class="sponsor-heading">{support.heading}</h2>
+      <p class="sponsor-description">{support.description}</p>
       <div class="sponsor-buttons">
-        <a href="/stott-oss/" class="button-gold">Bli sponsor</a>
-        <a href="/om-oss/" class="button-outline">Les mer</a>
+        <a href="/stott-oss/" class="button-gold">{support.primaryButtonLabel}</a>
+        <a href="/om-oss/" class="button-outline">{support.secondaryButtonLabel}</a>
       </div>
     </div>
   </div>

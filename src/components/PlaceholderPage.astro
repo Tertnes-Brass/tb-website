@@ -3,15 +3,17 @@ import './PlaceholderPage.css'
 
 interface Props {
   title: string
+  description?: string
 }
 
-const { title } = Astro.props
+const { title, description = 'Innhold kommer snart …' } = Astro.props
 const headingId = `side-${title.toLowerCase().replaceAll(' ', '-')}`
 ---
 
 <main class="placeholder-page" aria-labelledby={headingId}>
   <div class="placeholder-page-container">
     <h1 id={headingId} class="placeholder-page-title">{title}</h1>
-    <p class="placeholder-page-description">Innhold kommer snart …</p>
+    <p class="placeholder-page-description">{description}</p>
+    <slot />
   </div>
 </main>

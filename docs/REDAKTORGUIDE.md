@@ -1,6 +1,6 @@
 # Redaktørguide for Tertnes Brass
 
-Dette er en liten Pages CMS-prøve for konserter, nyheter og medlemmer. Redaktører endrer bare innholdsfeltene. Nettsidens eksisterende layout, farger og komponenter ligger fortsatt i React-koden og kan ikke endres fra CMS-et.
+Pages CMS brukes til forsiden, konserter, nyheter og medlemmer. Redaktører endrer bare innholdsfeltene. Nettsidens layout, farger og Astro-komponenter ligger i kode og kan ikke endres fra CMS-et.
 
 ## Logg inn
 
@@ -12,11 +12,14 @@ Før første test må Pages CMS sin GitHub-app være installert for organisasjon
 
 ## Opprett eller rediger innhold
 
+- **Forside:** Åpne `Faste sider` og velg `Forside`. Her kan du redigere toppteksten, seksjonsoverskriftene, de fem galleribildene og teksten i Støtt oss-feltet. Lenkemål og layout er låst i nettsiden.
 - **Konserter:** Opprett én oppføring per konsert. Bruk `Publisert på nettsiden` først når dato, sted og tekst er klare.
 - **Nyheter:** Opprett korte nyhetssaker med bilde og alternativ bildetekst. Bare én sak bør være markert som fremhevet.
 - **Medlemmer:** Opprett én oppføring per person. Portrett og presentasjon er frivillig i PoC-en.
 
 ID-feltene brukes i filnavn. Bruk bare små bokstaver, tall og bindestrek, for eksempel `hostkonsert-2026`.
+
+Forsiden er én fast innholdsfil og kan ikke slettes i Pages CMS. Overskriften i toppfeltet er delt i flere felt fordi nettsiden viser deler av teksten i burgunder og gull. Kontroller forsiden etter lagring for å se at linjeskiftene fungerer på både mobil og stor skjerm.
 
 ## Last opp bilder
 
@@ -31,10 +34,10 @@ Nye bilder lagres under `public/images/uploads/` og får nettadresse under `/ima
 Når du lagrer i Pages CMS, skrives endringen direkte til Git-repositoriet som en commit. Pages CMS er ikke en egen innholdsdatabase og har ikke et separat «publiser»-lager. Hva som skjer videre avhenger av repoets bygg- og utrullingsoppsett:
 
 - På en testgren blir endringen bare liggende på den grenen til den eventuelt flettes.
-- På `main` starter Vercel automatisk en ny produksjonsbygging. Endringen blir offentlig når byggingen er fullført.
+- På `main` starter Cloudflare automatisk en ny produksjonsbygging. Endringen blir offentlig når byggingen er fullført.
 - `Publisert på nettsiden` bestemmer om en konsert, nyhet eller person blir tatt med i appens offentlige innhold.
 
-Kontroller alltid den aktuelle siden på [tertnesbrass.no](https://tertnesbrass.no/) etter lagring. Ta kontakt med en repository-administrator hvis endringen ikke blir synlig eller siden viser en feil.
+Kontroller alltid den aktuelle siden på [tertnesbrass.com](https://tertnesbrass.com/) etter lagring. Ta kontakt med en repository-administrator hvis endringen ikke blir synlig eller siden viser en feil.
 
 PoC-en legger ikke til en egen godkjenningsflyt eller forhåndsvisning. Avtal derfor hvem som kan lagre til produksjonsgrenen før redaktørtesting.
 
@@ -46,6 +49,6 @@ Alle lagringer er Git-commits. En feil kan rulles tilbake ved å reversere den a
 
 - Ingen egen adminside bygges inn i nettstedet.
 - Ingen forhåndsvisning eller godkjenningskø er konfigurert.
-- Faste forsidetekster, navigasjon og kontaktinformasjon er ikke redigerbare i denne avgrensede PoC-en.
+- Navigasjon og kontaktinformasjon er ikke redigerbare i denne avgrensede PoC-en.
 - Medlemsregisteret inneholder bare innhold som allerede kunne dokumenteres i den rene hovedgrenen og må fylles ut før reell redaktørtest.
 - CMS-oppsettet er ikke vurdert som produksjonsklart før en ikke-teknisk redaktør har testet hele flyten.

@@ -27,6 +27,24 @@ Website for Tertnes Brass, an elite-section brass band from Bergen.
    decorative images.
 9. Use Conventional Commits in English.
 
+## Baseline guard
+
+Before changing public-site code:
+
+1. Run `git status --short --branch`.
+2. Confirm that `package.json` uses Astro and that `src/pages/index.astro`
+   exists.
+3. Run `bun run check:baseline`.
+
+If any check fails, stop and move the work onto the current `main` baseline
+before editing. Never implement public-site changes on a branch that predates
+the Astro migration. Do not recreate the retired TanStack `src/routes/`
+structure or use the deleted React components as implementation references.
+
+Pages CMS content lives under `src/content/` and must be consumed by Astro
+components or pages. A CMS field is not considered implemented merely because
+it exists in `.pages.yml`.
+
 ## Structure
 
 ```text
@@ -115,6 +133,7 @@ script is needed:
 Before handing off changes:
 
 ```bash
+bun run check:baseline
 bun run test
 bun run build
 bun run deploy:dry-run

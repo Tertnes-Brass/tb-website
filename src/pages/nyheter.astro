@@ -1,8 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import PlaceholderPage from '../components/PlaceholderPage.astro'
+import { news } from '../content/content'
 ---
 
 <BaseLayout title="Nyheter" description="Siste nytt fra Tertnes Brass.">
-  <PlaceholderPage title="Nyheter" />
+  <PlaceholderPage
+    title="Nyheter"
+    description="Siste nytt fra konserter, konkurranser og korpslivet."
+  >
+    <ul class="placeholder-page-list">
+      {
+        news.map((article) => (
+          <li class="placeholder-page-list-item">
+            <p class="placeholder-page-item-meta">{article.category}</p>
+            <h2 class="placeholder-page-item-title">{article.title}</h2>
+            <p class="placeholder-page-item-description">{article.summary}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </PlaceholderPage>
 </BaseLayout>

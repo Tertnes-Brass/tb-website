@@ -1,3 +1,5 @@
+import homePageData from './pages/home.json'
+
 export interface ConcertProgramItem {
   kind: 'korps' | 'verk'
   label: string
@@ -46,6 +48,48 @@ export interface MemberContent {
   sortOrder: number
 }
 
+export interface HomePageContent {
+  hero: {
+    headingLead: string
+    headingBurgundy: string
+    headingMiddle: string
+    headingGold: string
+    headingSuffix: string
+    description: string
+    primaryButtonLabel: string
+    secondaryButtonLabel: string
+    facts: string
+  }
+  events: {
+    badge: string
+    heading: string
+    itemLinkLabel: string
+    allLinkLabel: string
+  }
+  news: {
+    badge: string
+    heading: string
+    featuredLinkLabel: string
+    allLinkLabel: string
+  }
+  gallery: {
+    badge: string
+    heading: string
+    allLinkLabel: string
+    items: Array<{
+      image: string
+      imageAlt: string
+    }>
+  }
+  support: {
+    badge: string
+    heading: string
+    description: string
+    primaryButtonLabel: string
+    secondaryButtonLabel: string
+  }
+}
+
 const concertModules = import.meta.glob<ConcertContent>('./concerts/*.json', {
   eager: true,
   import: 'default',
@@ -72,6 +116,8 @@ export const news = Object.values(newsModules)
 export const members = Object.values(memberModules)
   .filter((member) => member.published)
   .toSorted((a, b) => a.sortOrder - b.sortOrder)
+
+export const homePage: HomePageContent = homePageData
 
 export function formatConcertDate(date: string): string {
   return new Intl.DateTimeFormat('nb-NO', {

@@ -1,74 +1,58 @@
 ---
+import { homePage, news } from '../content/content'
 import './NewsSection.css'
 
-interface NewsItem {
-  emoji: string
-  tag: string
-  title: string
-  description: string
-}
+const { news: newsSection } = homePage
+const featuredNews = news.find((article) => article.featured) ?? news[0]
+const smallNews = news.filter((article) => article.id !== featuredNews?.id).slice(0, 3)
 
-const smallNews: NewsItem[] = [
-  {
-    emoji: '🎵',
-    tag: 'REPERTOAR',
-    title: 'Nytt repertoar til våren',
-    description: 'Vi gleder oss til å presentere et spennende repertoar til konserter denne våren.',
-  },
-  {
-    emoji: '🏆',
-    tag: 'KONKURRANSE',
-    title: 'Vi deltar på NM Brass',
-    description: 'Korpset konkurrerer i Elitedivisjonen i NM Brass, hvor vi har spilt siden 2018.',
-  },
-  {
-    emoji: '🎊',
-    tag: 'SOSIALT',
-    title: 'Nyttårsbord under NM-oppkjøring',
-    description: 'Vi arrangerte nyttårsbord under første seminarhelg i NM-oppkjøringen 💃',
-  },
-]
+function getCategoryEmoji(category: string): string {
+  if (category === 'Konkurranse') return '🏆'
+  if (category === 'Korpsliv') return '🎊'
+  return '🎵'
+}
 ---
 
-<section class="news-section">
-  <div class="news-container">
-    <div class="section-header">
-      <div class="section-badge">📰 Siste nytt</div>
-      <h2 class="section-title">Hva skjer hos oss?</h2>
-    </div>
-
-    <div class="news-grid">
-      <article class="featured-news">
-        <div class="featured-image" aria-hidden="true">📸</div>
-        <div class="featured-content">
-          <span class="news-tag">KONSERT</span>
-          <h3 class="featured-title">3. plass i Siddis Brass 2025</h3>
-          <p class="featured-description">
-            Korpset presterte bra under Siddis Brass 2025 og ble belønnet med en 3. plass. Takk
-            til alle som kom og hørte på!
-          </p>
-          <a href="/nyheter/" class="read-more-link">Les mer →</a>
+{
+  featuredNews && (
+    <section class="news-section">
+      <div class="news-container">
+        <div class="section-header">
+          <div class="section-badge">{newsSection.badge}</div>
+          <h2 class="section-title">{newsSection.heading}</h2>
         </div>
-      </article>
 
-      <div class="small-news">
-        {
-          smallNews.map((news) => (
-            <article class="news-item">
-              <div class="news-icon" aria-hidden="true">{news.emoji}</div>
-              <div class="news-item-content">
-                <span class="news-tag">{news.tag}</span>
-                <h3 class="news-item-title">{news.title}</h3>
-                <p class="news-item-description">{news.description}</p>
-              </div>
-            </article>
-          ))
-        }
+        <div class="news-grid">
+          <article class="featured-news">
+            <div class="featured-image" aria-hidden="true">📸</div>
+            <div class="featured-content">
+              <span class="news-tag">{featuredNews.category.toUpperCase()}</span>
+              <h3 class="featured-title">{featuredNews.title}</h3>
+              <p class="featured-description">{featuredNews.summary}</p>
+              <a href="/nyheter/" class="read-more-link">{newsSection.featuredLinkLabel}</a>
+            </div>
+          </article>
+
+          <div class="small-news">
+            {
+              smallNews.map((article) => (
+                <article class="news-item">
+                  <div class="news-icon" aria-hidden="true">{getCategoryEmoji(article.category)}</div>
+                  <div class="news-item-content">
+                    <span class="news-tag">{article.category.toUpperCase()}</span>
+                    <h3 class="news-item-title">{article.title}</h3>
+                    <p class="news-item-description">{article.summary}</p>
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="news-footer">
+          <a href="/nyheter/" class="view-all-link">{newsSection.allLinkLabel}</a>
+        </div>
       </div>
-    </div>
-
-    <div class="news-footer">
-      <a href="/nyheter/" class="view-all-link">Se alle nyheter →</a>
-    </div>
-  </div>
-</section>
+    </section>
+  )
+}

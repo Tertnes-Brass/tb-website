@@ -56,6 +56,11 @@
   margin: 0;
 }
 
+.placeholder-page-empty {
+  color: var(--text-soft);
+  margin: var(--spacing-lg) 0 0;
+}
+
 @media (min-width: 769px) {
   .placeholder-page-container {
     max-width: 1200px;

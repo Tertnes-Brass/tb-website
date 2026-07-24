@@ -1,15 +1,17 @@
 ---
+import { homePage } from '../content/content'
 import { concerts } from '../data/concerts'
 import './EventsSection.css'
 
 const featuredConcerts = concerts.slice(0, 3)
+const { events } = homePage
 ---
 
 <section class="events-section">
   <div class="events-container">
     <div class="section-header">
-      <div class="section-badge">📅 Sesongprogram</div>
-      <h2 class="section-title">Kommende konserter</h2>
+      <div class="section-badge">{events.badge}</div>
+      <h2 class="section-title">{events.heading}</h2>
     </div>
 
     <div class="events-grid">
@@ -35,14 +37,14 @@ const featuredConcerts = concerts.slice(0, 3)
               <span class="venue-icon" aria-hidden="true">📍</span>
               {concert.venue}
             </div>
-            <a href={`/program/#${concert.id}`} class="event-link">Les mer →</a>
+            <a href={`/program/#${concert.id}`} class="event-link">{events.itemLinkLabel}</a>
           </article>
         ))
       }
     </div>
 
     <div class="events-footer">
-      <a href="/program/" class="view-all-link">Se hele programmet →</a>
+      <a href="/program/" class="view-all-link">{events.allLinkLabel}</a>
     </div>
   </div>
 </section>
