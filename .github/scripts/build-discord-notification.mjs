@@ -191,7 +191,7 @@ if (eventName === "check_run") {
 		checkRun.pull_requests?.[0]?.head?.ref;
 	const isCloudflareBuild =
 		checkRun.app?.slug === "cloudflare-workers-and-pages" &&
-		checkRun.name === "Workers Builds: tertnesbrass-website";
+		checkRun.name === "Workers Builds: tb-website";
 	const isPreview = /Preview URL:/i.test(checkRun.output?.summary ?? "");
 	const isProduction = productionBranches.has(branch) && !isPreview;
 	const conclusion = checkRun.conclusion?.toLocaleLowerCase("en-US");

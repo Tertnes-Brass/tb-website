@@ -42,7 +42,7 @@ bun run preview
 The checked-in [`wrangler.jsonc`](./wrangler.jsonc) is the deployment source of
 truth. It configures:
 
-- Worker name: `tertnesbrass-website`
+- Worker name: `tb-website`
 - Cloudflare account: Tertnes Brass
 - Static asset directory: `dist`
 - Custom domain: `tertnesbrass.com`
@@ -57,7 +57,7 @@ bun run deploy
 
 ### Workers Builds
 
-The GitHub repository `Tertnes-Brass/tertnesbrass` is connected to Cloudflare
+The GitHub repository `Tertnes-Brass/tb-website` is connected to Cloudflare
 Workers Builds with these settings:
 
 | Setting | Value |

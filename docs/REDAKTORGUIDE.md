@@ -6,7 +6,7 @@ Dette er en liten Pages CMS-prøve for konserter, nyheter og medlemmer. Redaktø
 
 1. Gå til [app.pagescms.org](https://app.pagescms.org/).
 2. Logg inn med GitHub-brukeren som har tilgang til Tertnes Brass-repositoriet.
-3. Velg repositoriet `Tertnes-Brass/tertnesbrass` og produksjonsgrenen `main`.
+3. Velg repositoriet `Tertnes-Brass/tb-website` og produksjonsgrenen `main`.
 
 Før første test må Pages CMS sin GitHub-app være installert for organisasjonen eller kontoen som eier repositoriet. Denne tilgangen må godkjennes av en repository-administrator.
 

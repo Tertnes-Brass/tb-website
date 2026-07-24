@@ -4,7 +4,7 @@
  */
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "tertnesbrass-website",
+  "name": "tb-website",
   "account_id": "3709ec57046e3f629f737cf5b6b88a82",
   "compatibility_date": "2026-07-24",
   "assets": {

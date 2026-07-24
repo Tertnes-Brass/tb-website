@@ -21,7 +21,7 @@ jobs:
     name: Varsle Discord
     if: >-
       github.event_name != 'check_run' ||
-      (github.event.check_run.name == 'Workers Builds: tertnesbrass-website' &&
+      (github.event.check_run.name == 'Workers Builds: tb-website' &&
       github.event.check_run.app.slug == 'cloudflare-workers-and-pages')
     runs-on: ubuntu-latest
     timeout-minutes: 5
