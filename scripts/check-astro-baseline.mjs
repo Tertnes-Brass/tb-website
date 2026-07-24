@@ -1,4 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs'
+import { parse as parseYaml } from 'yaml'
 
 const packageJson = JSON.parse(readFileSync('package.json', 'utf8'))
 const errors = []
@@ -35,7 +36,7 @@ if (!existsSync('src/content/pages/home.json')) {
 if (!existsSync('.pages.yml')) {
   errors.push('.pages.yml mangler')
 } else {
-  const pagesConfig = Bun.YAML.parse(readFileSync('.pages.yml', 'utf8'))
+  const pagesConfig = parseYaml(readFileSync('.pages.yml', 'utf8'))
   const pagesGroup = pagesConfig.content?.find((entry) => entry.name === 'sider')
   const homePageEntry = pagesGroup?.items?.find((entry) => entry.name === 'forside')
 
