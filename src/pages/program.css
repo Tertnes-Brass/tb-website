@@ -24,7 +24,7 @@
   border-radius: 50px;
   font-weight: 600;
   font-size: 0.9rem;
-  margin-bottom: var(--spacing-md);
+  margin: 0 0 var(--spacing-md);
 }
 
 .program-title {
@@ -46,6 +46,35 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
+}
+
+.program-empty {
+  max-width: 52ch;
+  margin: 0 auto;
+  padding: var(--spacing-xl) 0;
+  text-align: center;
+  color: var(--text-soft);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.program-empty a {
+  color: var(--burgundy);
+  font-weight: 600;
+}
+
+.program-archive {
+  margin-top: var(--spacing-2xl);
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid var(--burgundy-pastel);
+}
+
+.program-archive-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--burgundy);
+  text-align: center;
+  margin: 0 0 var(--spacing-xl);
 }
 
 .program-footer {

@@ -1,0 +1,53 @@
+---
+import { Image } from 'astro:assets'
+import Images from '@lucide/astro/icons/images'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { homePage } from '../content/content'
+import { GALLERY_WIDTHS, requireImage } from '../lib/images'
+import './bilder.css'
+
+const { gallery } = homePage
+---
+
+<BaseLayout
+  title="Bilder"
+  description="Bilder fra konserter, øvelser og korpsliv i Tertnes Brass."
+>
+  <main class="photos-page">
+    <div class="photos-container">
+      <header class="photos-header">
+        <p class="photos-badge">
+          <Images size={16} aria-hidden="true" />
+          {gallery.badge}
+        </p>
+        <h1 class="photos-title">{gallery.heading}</h1>
+        <p class="photos-description">
+          Glimt fra konserter, seminarhelger og øvelser med Tertnes Brass.
+        </p>
+      </header>
+
+      {
+        gallery.items.length > 0 ? (
+          <ul class="photos-grid">
+            {gallery.items.map((item) => (
+              <li class="photos-item">
+                <figure class="photos-figure">
+                  <Image
+                    src={requireImage(item.image, 'bildealbum')}
+                    alt={item.imageAlt}
+                    widths={GALLERY_WIDTHS}
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    class="photos-image"
+                    loading="lazy"
+                  />
+                </figure>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="photos-empty">Vi legger ut bilder her så snart vi har noen å dele.</p>
+        )
+      }
+    </div>
+  </main>
+</BaseLayout>

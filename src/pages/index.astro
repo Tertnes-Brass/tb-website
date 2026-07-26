@@ -8,6 +8,43 @@ import SponsorCTA from '../components/SponsorCTA.astro'
 ---
 
 <BaseLayout>
+  {/*
+    The hero artwork is a CSS background, so the browser only discovers it after
+    the stylesheet has parsed — too late for the largest paint on the page.
+    Preloading the variant that matches the OS appearance fixes that for the
+    default case; visitors who have flipped the theme toggle load it normally.
+  */}
+  <Fragment slot="head">
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero/pins-stage-light-1600.webp"
+      type="image/webp"
+      media="(prefers-color-scheme: light) and (min-width: 45.0625rem)"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero/pins-stage-light-960.webp"
+      type="image/webp"
+      media="(prefers-color-scheme: light) and (max-width: 45rem)"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero/pins-stage-1600.webp"
+      type="image/webp"
+      media="(prefers-color-scheme: dark) and (min-width: 45.0625rem)"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero/pins-stage-960.webp"
+      type="image/webp"
+      media="(prefers-color-scheme: dark) and (max-width: 45rem)"
+    />
+  </Fragment>
+
   <main>
     <Hero />
     <EventsSection />

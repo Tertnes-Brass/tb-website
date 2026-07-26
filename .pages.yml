@@ -1,7 +1,9 @@
+# Images live under src/ so Astro can generate responsive WebP/AVIF variants at
+# build time. Anything placed in public/ is copied verbatim and stays unoptimised.
 media:
   label: Bilder
-  input: public/images
-  output: /images
+  input: src/assets/bilder
+  output: /src/assets/bilder
   rename: safe
   categories: [image]
 
@@ -127,6 +129,14 @@ content:
                 required: true
                 options:
                   maxlength: 40
+              - name: emptyText
+                label: Tekst når ingen konserter er planlagt
+                type: text
+                required: true
+                description: Vises på forsiden når det ikke finnes kommende konserter.
+                options:
+                  minlength: 20
+                  maxlength: 300
 
           - name: news
             label: Nyhetsseksjon
@@ -157,6 +167,14 @@ content:
                 required: true
                 options:
                   maxlength: 40
+              - name: emptyText
+                label: Tekst når ingen nyheter er publisert
+                type: text
+                required: true
+                description: Vises på forsiden når det ikke finnes publiserte nyheter.
+                options:
+                  minlength: 20
+                  maxlength: 300
 
           - name: gallery
             label: Bildealbum
@@ -179,7 +197,7 @@ content:
                 label: Tekst på lenken under bildene
                 type: string
                 required: true
-                description: Lenken går alltid til Nyheter.
+                description: Lenken går alltid til Bilder-siden.
                 options:
                   maxlength: 40
               - name: items
@@ -187,19 +205,20 @@ content:
                 type: object
                 required: true
                 list:
-                  min: 5
-                  max: 5
+                  min: 1
                   collapsible:
                     collapsed: true
                     summary: "{imageAlt}"
-                description: Forsiden bruker alltid fem bilder. Rekkefølgen bestemmer plasseringen.
+                description: >-
+                  De seks første bildene vises på forsiden; alle vises på Bilder-siden.
+                  Rekkefølgen bestemmer plasseringen.
                 fields:
                   - name: image
                     label: Bilde
                     type: image
                     required: true
                     options:
-                      path: uploads/homepage
+                      path: galleri
                       extensions: [jpg, jpeg, png, webp]
                       rename: safe
                   - name: imageAlt
@@ -337,7 +356,7 @@ content:
             type: image
             description: Liggende format anbefales.
             options:
-              path: uploads/concerts
+              path: konserter
               extensions: [jpg, jpeg, png, webp]
               rename: safe
           - name: imageAlt
@@ -358,6 +377,12 @@ content:
             pattern:
               regex: "^$|^https://.+$"
               message: Lenken må starte med https://
+          - name: extraInfo
+            label: Ekstra info under programmet
+            type: string
+            description: "Valgfri linje, for eksempel: Kaffe og kake blir det også!"
+            options:
+              maxlength: 160
           - name: program
             label: Program
             type: object
@@ -394,12 +419,12 @@ content:
           field: create
         view:
           primary: title
-          fields: [title, category, featured, published]
+          fields: [title, category, date, featured, published]
           search: [title, category, summary]
-          sort: [sortOrder, title]
+          sort: [date, title]
           default:
-            sort: sortOrder
-            order: asc
+            sort: date
+            order: desc
         fields:
           - name: id
             label: Kort ID
@@ -420,19 +445,31 @@ content:
             required: true
             options:
               values: [Konkurranse, Konsert, Repertoar, Korpsliv]
+          - name: date
+            label: Publiseringsdato
+            type: date
+            required: true
+            description: Nyeste sak vises først på forsiden og i nyhetsarkivet.
+            options:
+              format: yyyy-MM-dd
           - name: summary
             label: Kort ingress
             type: text
             required: true
+            description: Vises på forsiden og i nyhetslisten. Hold den kort og konkret.
             options:
               minlength: 30
               maxlength: 320
+          - name: body
+            label: Brødtekst
+            type: rich-text
+            description: Selve saken. La feltet stå tomt hvis ingressen er hele saken.
           - name: image
             label: Bilde
             type: image
             required: true
             options:
-              path: uploads/news
+              path: nyheter
               extensions: [jpg, jpeg, png, webp]
               rename: safe
           - name: imageAlt
@@ -451,11 +488,6 @@ content:
             label: Publisert på nettsiden
             type: boolean
             required: true
-          - name: sortOrder
-            label: Rekkefølge
-            type: number
-            required: true
-            description: Laveste tall vises først.
 
       - name: medlemmer
         label: Medlemmer
@@ -508,7 +540,7 @@ content:
             type: image
             description: Frivillig. Bruk et ryddig portrett i stående format.
             options:
-              path: uploads/members
+              path: medlemmer
               extensions: [jpg, jpeg, png, webp]
               rename: safe
           - name: imageAlt

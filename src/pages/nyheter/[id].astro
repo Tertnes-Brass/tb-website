@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets'
+import ArrowLeft from '@lucide/astro/icons/arrow-left'
+import type { GetStaticPaths } from 'astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { formatNewsDate, news, type NewsContent } from '../../content/content'
+import { requireImage } from '../../lib/images'
+import './nyheter.css'
+
+export const getStaticPaths = (() => {
+  return news.map((article) => ({
+    params: { id: article.id },
+    props: { article },
+  }))
+}) satisfies GetStaticPaths
+
+interface Props {
+  article: NewsContent
+}
+
+const { article } = Astro.props
+const image = requireImage(article.image, `nyhet ${article.id}`)
+---
+
+<BaseLayout title={article.title} description={article.summary}>
+  <main class="article-page">
+    <article class="article-container">
+      <a href="/nyheter/" class="article-back">
+        <ArrowLeft size={16} aria-hidden="true" />
+        Alle nyheter
+      </a>
+
+      <header class="article-header">
+        <p class="news-meta">
+          <span class="news-tag">{article.category}</span>
+          <time datetime={article.date}>{formatNewsDate(article.date)}</time>
+        </p>
+        <h1 class="article-title">{article.title}</h1>
+        <p class="article-lede">{article.summary}</p>
+      </header>
+
+      <Image
+        src={image}
+        alt={article.imageAlt}
+        widths={[480, 760, 1120, 1600]}
+        sizes="(max-width: 900px) 100vw, 860px"
+        class="article-image"
+        loading="eager"
+        fetchpriority="high"
+      />
+
+      {article.body && <div class="article-body" set:html={article.body} />}
+    </article>
+  </main>
+</BaseLayout>

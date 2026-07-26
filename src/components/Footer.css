@@ -107,9 +107,17 @@
 }
 
 .footer-copyright {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-wrap: wrap;
   color: var(--text-muted);
   font-size: 0.9rem;
   margin: 0;
+}
+
+.footer-heart {
+  color: var(--burgundy);
 }
 
 .footer-social {

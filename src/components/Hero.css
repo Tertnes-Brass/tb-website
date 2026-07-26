@@ -164,6 +164,20 @@
   color: var(--hero-text-muted);
 }
 
+/* Phones never need the 1600px artwork; the 960px variant is roughly a third
+   of the bytes and the hero is the largest paint on the page. */
+@media (max-width: 45rem) {
+  .hero {
+    --hero-image-fallback: url("/images/hero/pins-stage-light-960.jpg");
+    --hero-image: url("/images/hero/pins-stage-light-960.webp");
+  }
+
+  [data-theme="dark"] .hero {
+    --hero-image-fallback: url("/images/hero/pins-stage-960.jpg");
+    --hero-image: url("/images/hero/pins-stage-960.webp");
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .hero-content {
     opacity: 0;
