@@ -154,3 +154,33 @@ Treat `wrangler.jsonc` as the deployment source of truth. Keep the Worker name,
 Tertnes Brass account ID and `tertnesbrass.com` custom domain intact. Never
 change DNS, redirects, mail records or production deployment without the task
 explicitly authorizing it.
+
+### How a merge reaches production
+
+Cloudflare Workers Builds is connected to `Tertnes-Brass/tb-website` and picks
+one of two paths per build, based on the **production branch** configured in the
+dashboard under Build → Branch control:
+
+| Branch | Command that runs | Result |
+| --- | --- | --- |
+| production branch (`main`) | `npx wrangler deploy` | live on `tertnesbrass.com` |
+| any other branch | `npx wrangler versions upload` | preview URL only |
+
+This setting is not in the repository, so it can drift silently. It did: the
+production branch pointed at `feat/astro-cloudflare-migration` long after that
+branch was merged and deleted, so from 2026-07-24 to 2026-07-26 every merge to
+`main` uploaded a version that was never promoted. Builds went green the whole
+time and production served stale content.
+
+A green build check is therefore not evidence of a deploy. After merging to
+`main`, confirm the deployment actually moved:
+
+```bash
+bunx wrangler deployments status   # Created timestamp must be newer than the merge
+```
+
+If a build only produced a version, promote it explicitly:
+
+```bash
+bunx wrangler versions deploy <version-id>
+```
