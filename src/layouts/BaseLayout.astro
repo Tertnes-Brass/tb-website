@@ -50,6 +50,8 @@ const socialImageUrl = new URL(image, Astro.site)
       href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
     />
 
+    <slot name="head" />
+
     <script is:inline>
       (() => {
         try {

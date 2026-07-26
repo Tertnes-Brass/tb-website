@@ -1,50 +1,72 @@
 ---
+import { Image } from 'astro:assets'
+import CalendarDays from '@lucide/astro/icons/calendar-days'
+import MapPin from '@lucide/astro/icons/map-pin'
+import Music from '@lucide/astro/icons/music-4'
+import ArrowRight from '@lucide/astro/icons/arrow-right'
 import { homePage } from '../content/content'
-import { concerts } from '../data/concerts'
+import { upcomingConcerts } from '../data/concerts'
+import { CARD_WIDTHS } from '../lib/images'
 import './EventsSection.css'
 
-const featuredConcerts = concerts.slice(0, 3)
+const featuredConcerts = upcomingConcerts.slice(0, 3)
 const { events } = homePage
 ---
 
 <section class="events-section">
   <div class="events-container">
     <div class="section-header">
-      <div class="section-badge">{events.badge}</div>
+      <p class="section-badge">
+        <CalendarDays size={16} aria-hidden="true" />
+        {events.badge}
+      </p>
       <h2 class="section-title">{events.heading}</h2>
     </div>
 
-    <div class="events-grid">
-      {
-        featuredConcerts.map((concert) => (
-          <article class="event-card">
-            {concert.image ? (
-              <img
-                src={concert.image.src}
-                srcset={concert.image.srcSet}
-                alt={concert.image.alt}
-                width="380"
-                height="240"
-                class="event-image"
-                loading="lazy"
-              />
-            ) : (
-              <div class="event-emoji" aria-hidden="true">{concert.emoji}</div>
-            )}
-            <div class="event-date">{concert.date}</div>
-            <h3 class="event-title">{concert.title}</h3>
-            <div class="event-venue">
-              <span class="venue-icon" aria-hidden="true">📍</span>
-              {concert.venue}
-            </div>
-            <a href={`/program/#${concert.id}`} class="event-link">{events.itemLinkLabel}</a>
-          </article>
-        ))
-      }
-    </div>
+    {
+      featuredConcerts.length > 0 ? (
+        <div class="events-grid">
+          {featuredConcerts.map((concert) => (
+            <article class="event-card">
+              {concert.image ? (
+                <Image
+                  src={concert.image.source}
+                  alt={concert.image.alt}
+                  widths={CARD_WIDTHS}
+                  sizes="(max-width: 768px) 100vw, 380px"
+                  class="event-image"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="event-marker" aria-hidden="true">
+                  <Music size={32} />
+                </div>
+              )}
+              <p class="event-date">
+                <time datetime={concert.isoDate}>{concert.date}</time>
+              </p>
+              <h3 class="event-title">{concert.title}</h3>
+              <p class="event-venue">
+                <MapPin size={16} aria-hidden="true" />
+                {concert.venue}
+              </p>
+              <a href={`/program/#${concert.id}`} class="event-link">
+                {events.itemLinkLabel}
+                <ArrowRight size={16} aria-hidden="true" />
+              </a>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p class="events-empty">{events.emptyText}</p>
+      )
+    }
 
     <div class="events-footer">
-      <a href="/program/" class="view-all-link">{events.allLinkLabel}</a>
+      <a href="/program/" class="view-all-link">
+        {events.allLinkLabel}
+        <ArrowRight size={18} aria-hidden="true" />
+      </a>
     </div>
   </div>
 </section>

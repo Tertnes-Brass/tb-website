@@ -1,30 +1,60 @@
 ---
+import { Image } from 'astro:assets'
+import Images from '@lucide/astro/icons/images'
+import ArrowRight from '@lucide/astro/icons/arrow-right'
 import { homePage } from '../content/content'
+import { GALLERY_WIDTHS, requireImage } from '../lib/images'
 import './GallerySection.css'
 
 const { gallery } = homePage
-const wideImageIndexes = new Set([0, 1, 4])
+
+/* The front page shows a fixed six-tile mosaic; the rest lives on /bilder/. */
+const items = gallery.items.slice(0, 6)
+const wideImageIndexes = new Set([0, 3])
+
+/* The grid is 4 columns inside a 1200px container, so a normal tile tops out
+   around 285px and a double-width tile around 585px. Declaring that keeps the
+   browser from picking a variant that is either soft or needlessly large. */
+const NARROW_SIZES = '(min-width: 1264px) 285px, (min-width: 1025px) 25vw, (min-width: 769px) 33vw, 50vw'
+const WIDE_SIZES = '(min-width: 1264px) 585px, (min-width: 1025px) 50vw, (min-width: 769px) 66vw, 100vw'
 ---
 
-<section class="gallery-section">
-  <div class="gallery-container">
-    <div class="section-header">
-      <div class="section-badge">{gallery.badge}</div>
-      <h2 class="section-title">{gallery.heading}</h2>
-    </div>
+{
+  items.length > 0 && (
+    <section class="gallery-section">
+      <div class="gallery-container">
+        <div class="section-header">
+          <p class="section-badge">
+            <Images size={16} aria-hidden="true" />
+            {gallery.badge}
+          </p>
+          <h2 class="section-title">{gallery.heading}</h2>
+        </div>
 
-    <div class="gallery-grid">
-      {
-        gallery.items.map((item, index) => (
-          <figure class:list={['gallery-item', wideImageIndexes.has(index) && 'gallery-item-span-2']}>
-            <img src={item.image} alt={item.imageAlt} class="gallery-image" loading="lazy" />
-          </figure>
-        ))
-      }
-    </div>
+        <div class="gallery-grid">
+          {items.map((item, index) => (
+            <figure
+              class:list={['gallery-item', wideImageIndexes.has(index) && 'gallery-item-span-2']}
+            >
+              <Image
+                src={requireImage(item.image, 'bildealbum på forsiden')}
+                alt={item.imageAlt}
+                widths={GALLERY_WIDTHS}
+                sizes={wideImageIndexes.has(index) ? WIDE_SIZES : NARROW_SIZES}
+                class="gallery-image"
+                loading="lazy"
+              />
+            </figure>
+          ))}
+        </div>
 
-    <div class="gallery-footer">
-      <a href="/nyheter/" class="view-all-button">{gallery.allLinkLabel}</a>
-    </div>
-  </div>
-</section>
+        <div class="gallery-footer">
+          <a href="/bilder/" class="view-all-button">
+            {gallery.allLinkLabel}
+            <ArrowRight size={18} aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+    </section>
+  )
+}

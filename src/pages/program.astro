@@ -1,8 +1,14 @@
 ---
+import CalendarDays from '@lucide/astro/icons/calendar-days'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import ProgramCard from '../components/ProgramCard.astro'
-import { concerts } from '../data/concerts'
+import { upcomingConcerts, pastConcerts } from '../data/concerts'
 import './program.css'
+
+const seasonLabel =
+  upcomingConcerts.length > 0
+    ? `Sesongprogram ${new Date(`${upcomingConcerts[0].isoDate}T12:00:00`).getFullYear()}`
+    : 'Sesongprogram'
 ---
 
 <BaseLayout
@@ -12,7 +18,10 @@ import './program.css'
   <main class="program-page">
     <div class="program-container">
       <header class="program-header">
-        <div class="program-badge">📅 Sesongprogram 2026</div>
+        <p class="program-badge">
+          <CalendarDays size={16} aria-hidden="true" />
+          {seasonLabel}
+        </p>
         <h1 class="program-title">Kommende konserter</h1>
         <p class="program-description">
           Velkommen til våre konserter! Åpne en konsert for å se detaljer om program, billetter
@@ -20,9 +29,36 @@ import './program.css'
         </p>
       </header>
 
-      <div class="program-grid">
-        {concerts.map((concert) => <ProgramCard concert={concert} />)}
-      </div>
+      {
+        upcomingConcerts.length > 0 ? (
+          <div class="program-grid">
+            {upcomingConcerts.map((concert) => (
+              <ProgramCard concert={concert} />
+            ))}
+          </div>
+        ) : (
+          <p class="program-empty">
+            Vi planlegger konsertene for høsten nå. Følg oss på{' '}
+            <a href="https://facebook.com/tertnesbr" target="_blank" rel="noopener noreferrer">
+              Facebook
+            </a>{' '}
+            eller ta kontakt, så gir vi beskjed så snart datoene er klare.
+          </p>
+        )
+      }
+
+      {
+        pastConcerts.length > 0 && (
+          <section class="program-archive">
+            <h2 class="program-archive-title">Tidligere konserter</h2>
+            <div class="program-grid">
+              {pastConcerts.map((concert) => (
+                <ProgramCard concert={concert} isPast />
+              ))}
+            </div>
+          </section>
+        )
+      }
 
       <footer class="program-footer">
         <p class="footer-note">

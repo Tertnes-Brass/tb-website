@@ -1,4 +1,5 @@
 ---
+import Heart from '@lucide/astro/icons/heart'
 import './Footer.css'
 
 interface SocialLink {
@@ -94,7 +95,10 @@ const currentYear = new Date().getFullYear()
     </div>
 
     <div class="footer-bottom">
-      <p class="footer-copyright">© {currentYear} Tertnes Brass. Laget med ❤️ i Bergen.</p>
+      <p class="footer-copyright">
+        © {currentYear} Tertnes Brass. Laget med
+        <Heart size={14} fill="currentColor" class="footer-heart" aria-label="kjærlighet" /> i Bergen.
+      </p>
       <div class="footer-social">
         {
           socialLinks.map((social) => (

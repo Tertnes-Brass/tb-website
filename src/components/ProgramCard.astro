@@ -1,40 +1,62 @@
 ---
+import { Image } from 'astro:assets'
+import Calendar from '@lucide/astro/icons/calendar'
+import Clock from '@lucide/astro/icons/clock'
+import MapPin from '@lucide/astro/icons/map-pin'
+import CalendarClock from '@lucide/astro/icons/calendar-clock'
+import Music from '@lucide/astro/icons/music-4'
+import ExternalLink from '@lucide/astro/icons/external-link'
 import type { Concert } from '../data/concerts'
+import { CARD_WIDTHS } from '../lib/images'
 import './ProgramCard.css'
 
 interface Props {
   concert: Concert
+  /** Set for concerts that have already been held, so they read as archive. */
+  isPast?: boolean
 }
 
-const { concert } = Astro.props
+const { concert, isPast = false } = Astro.props
 const isTBA = concert.status === 'tba'
 ---
 
-<details id={concert.id} class="program-card">
+<details id={concert.id} class:list={['program-card', isPast && 'program-card-past']}>
   <summary class="program-card-header">
     <span class="program-card-preview">
       {
         concert.image ? (
-          <img
-            src={concert.image.src}
-            srcset={concert.image.srcSet}
+          <Image
+            src={concert.image.source}
             alt={concert.image.alt}
-            width="120"
-            height="80"
+            widths={CARD_WIDTHS}
+            sizes="(max-width: 768px) 100vw, 120px"
             class="program-card-image"
             loading="lazy"
           />
         ) : (
-          <span class="program-card-emoji" aria-hidden="true">{concert.emoji}</span>
+          <span class="program-card-marker" aria-hidden="true">
+            {isTBA ? <CalendarClock size={22} /> : <Music size={22} />}
+          </span>
         )
       }
 
       <span class="program-card-info">
         <span class="program-card-title" role="heading" aria-level="2">{concert.title}</span>
         <span class="program-card-meta">
-          <span class="meta-item">📅 {concert.date}</span>
-          {concert.time !== 'TBA' && <span class="meta-item">🕐 {concert.time}</span>}
-          <span class="meta-item">📍 {concert.venue}</span>
+          <span class="meta-item">
+            <Calendar size={15} aria-hidden="true" />
+            <time datetime={concert.isoDate}>{concert.date}</time>
+          </span>
+          {concert.time !== 'TBA' && (
+            <span class="meta-item">
+              <Clock size={15} aria-hidden="true" />
+              {concert.time}
+            </span>
+          )}
+          <span class="meta-item">
+            <MapPin size={15} aria-hidden="true" />
+            {concert.venue}
+          </span>
         </span>
       </span>
 
@@ -64,8 +86,17 @@ const isTBA = concert.status === 'tba'
               <h3 class="detail-heading">Program</h3>
               <ul class="program-list">
                 {concert.program.map((item) => (
-                  <li class:list={['program-item', item.type === 'band' ? 'program-band' : 'program-piece']}>
-                    {item.type === 'band' && <span class="band-icon" aria-hidden="true">🎺</span>}
+                  <li
+                    class:list={[
+                      'program-item',
+                      item.type === 'band' ? 'program-band' : 'program-piece',
+                    ]}
+                  >
+                    {item.type === 'band' && (
+                      <span class="band-icon" aria-hidden="true">
+                        <Music size={16} />
+                      </span>
+                    )}
                     <div class="program-content">
                       <strong class="program-title">{item.title}</strong>
                       {item.composer && <span class="program-meta"> – {item.composer}</span>}
@@ -73,7 +104,7 @@ const isTBA = concert.status === 'tba'
                   </li>
                 ))}
               </ul>
-              <p class="extra-info">Kaffe og kake blir det også! 🍰☕️</p>
+              {concert.extraInfo && <p class="extra-info">{concert.extraInfo}</p>}
             </div>
           )}
 
@@ -97,7 +128,8 @@ const isTBA = concert.status === 'tba'
                 rel="noopener noreferrer"
                 class="facebook-link"
               >
-                Se arrangementet på Facebook →
+                Se arrangementet på Facebook
+                <ExternalLink size={16} aria-hidden="true" />
               </a>
             </div>
           )}

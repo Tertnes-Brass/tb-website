@@ -45,15 +45,15 @@
   flex-shrink: 0;
 }
 
-.program-card-emoji {
+.program-card-marker {
   width: 80px;
   height: 80px;
   border-radius: 12px;
   background-color: var(--gold-pastel);
+  color: var(--gold-text);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
   flex-shrink: 0;
 }
 
@@ -184,7 +184,8 @@
 }
 
 .band-icon {
-  font-size: 1.2rem;
+  display: inline-flex;
+  color: var(--burgundy);
   flex-shrink: 0;
 }
 
@@ -279,7 +280,7 @@
   }
 
   .program-card-image,
-  .program-card-emoji {
+  .program-card-marker {
     width: 100%;
     height: 160px;
   }
@@ -296,4 +297,14 @@
     flex-direction: column;
     gap: var(--spacing-xs);
   }
+}
+
+/* Archived concerts stay readable but visually recede behind upcoming ones. */
+.program-card-past .program-card-marker {
+  background-color: var(--bg-warm);
+  color: var(--text-muted);
+}
+
+.program-card-past .program-card-title {
+  color: var(--text-soft);
 }

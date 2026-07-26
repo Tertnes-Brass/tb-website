@@ -64,6 +64,7 @@
   border-radius: 50px;
   font-weight: 600;
   font-size: 0.9rem;
+  margin: 0;
   backdrop-filter: blur(10px);
 }
 

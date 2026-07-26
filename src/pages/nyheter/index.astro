@@ -1,0 +1,71 @@
+---
+import { Image } from 'astro:assets'
+import Newspaper from '@lucide/astro/icons/newspaper'
+import ArrowRight from '@lucide/astro/icons/arrow-right'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { formatNewsDate, news } from '../../content/content'
+import { requireImage } from '../../lib/images'
+import './nyheter.css'
+---
+
+<BaseLayout title="Nyheter" description="Siste nytt fra Tertnes Brass.">
+  <main class="news-page">
+    <div class="news-page-container">
+      <header class="news-page-header">
+        <p class="news-page-badge">
+          <Newspaper size={16} aria-hidden="true" />
+          Siste nytt
+        </p>
+        <h1 class="news-page-title">Nyheter</h1>
+        <p class="news-page-description">
+          Konsertreferater, konkurranser og glimt fra korpslivet i Tertnes Brass.
+        </p>
+      </header>
+
+      {
+        news.length > 0 ? (
+          <ul class="news-list">
+            {news.map((article) => (
+              <li class="news-list-item">
+                <article class="news-card">
+                  <a href={`/nyheter/${article.id}/`} class="news-card-media">
+                    <Image
+                      src={requireImage(article.image, `nyhet ${article.id}`)}
+                      alt={article.imageAlt}
+                      widths={[280, 380, 560, 760]}
+                      sizes="(max-width: 768px) 100vw, 280px"
+                      class="news-card-image"
+                      loading="lazy"
+                    />
+                  </a>
+                  <div class="news-card-body">
+                    <p class="news-meta">
+                      <span class="news-tag">{article.category}</span>
+                      <time datetime={article.date}>{formatNewsDate(article.date)}</time>
+                    </p>
+                    <h2 class="news-card-title">
+                      <a href={`/nyheter/${article.id}/`}>{article.title}</a>
+                    </h2>
+                    <p class="news-card-summary">{article.summary}</p>
+                    <a href={`/nyheter/${article.id}/`} class="news-card-link">
+                      Les hele saken
+                      <ArrowRight size={16} aria-hidden="true" />
+                    </a>
+                  </div>
+                </article>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="news-page-empty">
+            Vi har ingen publiserte saker akkurat nå. Følg oss på{' '}
+            <a href="https://facebook.com/tertnesbr" target="_blank" rel="noopener noreferrer">
+              Facebook
+            </a>{' '}
+            i mellomtiden.
+          </p>
+        )
+      }
+    </div>
+  </main>
+</BaseLayout>

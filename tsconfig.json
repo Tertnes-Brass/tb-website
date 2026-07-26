@@ -9,6 +9,8 @@
     }
   },
   "exclude": [
-    "src/data/concerts.test.ts"
+    "src/data/concerts.test.ts",
+    "dist",
+    "experiments"
   ]
 }

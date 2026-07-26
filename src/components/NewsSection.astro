@@ -1,58 +1,89 @@
 ---
-import { homePage, news } from '../content/content'
+import { Image } from 'astro:assets'
+import Newspaper from '@lucide/astro/icons/newspaper'
+import ArrowRight from '@lucide/astro/icons/arrow-right'
+import { formatNewsDate, homePage, news } from '../content/content'
+import { requireImage } from '../lib/images'
 import './NewsSection.css'
 
 const { news: newsSection } = homePage
 const featuredNews = news.find((article) => article.featured) ?? news[0]
 const smallNews = news.filter((article) => article.id !== featuredNews?.id).slice(0, 3)
-
-function getCategoryEmoji(category: string): string {
-  if (category === 'Konkurranse') return '🏆'
-  if (category === 'Korpsliv') return '🎊'
-  return '🎵'
-}
 ---
 
-{
-  featuredNews && (
-    <section class="news-section">
-      <div class="news-container">
-        <div class="section-header">
-          <div class="section-badge">{newsSection.badge}</div>
-          <h2 class="section-title">{newsSection.heading}</h2>
-        </div>
+<section class="news-section">
+  <div class="news-container">
+    <div class="section-header">
+      <p class="section-badge">
+        <Newspaper size={16} aria-hidden="true" />
+        {newsSection.badge}
+      </p>
+      <h2 class="section-title">{newsSection.heading}</h2>
+    </div>
 
+    {
+      featuredNews ? (
         <div class="news-grid">
           <article class="featured-news">
-            <div class="featured-image" aria-hidden="true">📸</div>
+            <Image
+              src={requireImage(featuredNews.image, `nyhet ${featuredNews.id}`)}
+              alt={featuredNews.imageAlt}
+              widths={[380, 560, 760, 1120]}
+              sizes="(max-width: 1024px) 100vw, 560px"
+              class="featured-image"
+              loading="lazy"
+            />
             <div class="featured-content">
-              <span class="news-tag">{featuredNews.category.toUpperCase()}</span>
-              <h3 class="featured-title">{featuredNews.title}</h3>
+              <p class="news-meta">
+                <span class="news-tag">{featuredNews.category}</span>
+                <time datetime={featuredNews.date}>{formatNewsDate(featuredNews.date)}</time>
+              </p>
+              <h3 class="featured-title">
+                <a href={`/nyheter/${featuredNews.id}/`}>{featuredNews.title}</a>
+              </h3>
               <p class="featured-description">{featuredNews.summary}</p>
-              <a href="/nyheter/" class="read-more-link">{newsSection.featuredLinkLabel}</a>
+              <a href={`/nyheter/${featuredNews.id}/`} class="read-more-link">
+                {newsSection.featuredLinkLabel}
+                <ArrowRight size={16} aria-hidden="true" />
+              </a>
             </div>
           </article>
 
           <div class="small-news">
-            {
-              smallNews.map((article) => (
-                <article class="news-item">
-                  <div class="news-icon" aria-hidden="true">{getCategoryEmoji(article.category)}</div>
-                  <div class="news-item-content">
-                    <span class="news-tag">{article.category.toUpperCase()}</span>
-                    <h3 class="news-item-title">{article.title}</h3>
-                    <p class="news-item-description">{article.summary}</p>
-                  </div>
-                </article>
-              ))
-            }
+            {smallNews.map((article) => (
+              <article class="news-item">
+                <Image
+                  src={requireImage(article.image, `nyhet ${article.id}`)}
+                  alt={article.imageAlt}
+                  widths={[60, 120, 180]}
+                  sizes="60px"
+                  class="news-item-image"
+                  loading="lazy"
+                />
+                <div class="news-item-content">
+                  <p class="news-meta">
+                    <span class="news-tag">{article.category}</span>
+                    <time datetime={article.date}>{formatNewsDate(article.date)}</time>
+                  </p>
+                  <h3 class="news-item-title">
+                    <a href={`/nyheter/${article.id}/`}>{article.title}</a>
+                  </h3>
+                  <p class="news-item-description">{article.summary}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
+      ) : (
+        <p class="news-empty">{newsSection.emptyText}</p>
+      )
+    }
 
-        <div class="news-footer">
-          <a href="/nyheter/" class="view-all-link">{newsSection.allLinkLabel}</a>
-        </div>
-      </div>
-    </section>
-  )
-}
+    <div class="news-footer">
+      <a href="/nyheter/" class="view-all-link">
+        {newsSection.allLinkLabel}
+        <ArrowRight size={18} aria-hidden="true" />
+      </a>
+    </div>
+  </div>
+</section>
