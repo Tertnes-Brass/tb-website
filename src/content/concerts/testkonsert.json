@@ -1,0 +1,18 @@
+{
+  "id": "testkonsert-2026",
+  "title": "testkonsert",
+  "date": "2026-08-14",
+  "time": "12:00",
+  "venue": "Åsane",
+  "address": "Åsane 1",
+  "description": "Dette er en test. Velkommen til oss og ha det bra",
+  "status": "utkast",
+  "published": false,
+  "childrenFree": true,
+  "program": [
+    {
+      "kind": "korps",
+      "label": "Schtøkke"
+    }
+  ]
+}
