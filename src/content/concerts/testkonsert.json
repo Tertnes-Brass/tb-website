@@ -7,7 +7,7 @@
   "address": "Åsane 1",
   "description": "Dette er en test. Velkommen til oss og ha det bra",
   "status": "bekreftet",
-  "published": false,
+  "published": true,
   "childrenFree": true,
   "program": [
     {
