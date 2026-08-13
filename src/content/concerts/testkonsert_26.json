@@ -1,0 +1,23 @@
+{
+  "id": "testkonsert-26",
+  "title": "Testkonsert i Åsane Kirke",
+  "date": "2026-08-16",
+  "time": "19:00",
+  "venue": "Åsane Kirke",
+  "address": "Salhusvegen 69",
+  "description": "Vi spiller ein testkonsert i Åsane Kirke (dette er kun en webtest).",
+  "status": "bekreftet",
+  "published": true,
+  "image": "/src/assets/bilder/tbstrikkogdrikklogo.png",
+  "imageAlt": "TB Strikk og drikk AS",
+  "ticketPrice": "69000",
+  "childrenFree": true,
+  "extraInfo": "Dette er ein test",
+  "program": [
+    {
+      "kind": "verk",
+      "label": "Extreme Make-Over NM 2009 - Eikanger-Bjørsvik",
+      "credit": "Nick Dick"
+    }
+  ]
+}
