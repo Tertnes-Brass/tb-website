@@ -9,5 +9,27 @@
   "status": "bekreftet",
   "published": true,
   "image": "/src/assets/bilder/98edd042-f200-472e-9c78-95b631ad8d36.jpg",
-  "childrenFree": false
+  "childrenFree": false,
+  "program": [
+    {
+      "kind": "verk",
+      "label": "Los trabajadores agrícolas - 1. Sats fra Estanscia \"Danzas del Ballet\" ",
+      "credit": "Alberto Ginastera"
+    },
+    {
+      "kind": "verk",
+      "label": "On with the Motley",
+      "credit": "Ruggero Leoncavallo, arr. Ray Farr, solist: Tonje Iversen (Soprankornett)"
+    },
+    {
+      "kind": "verk",
+      "label": "Aria (Cantilena)",
+      "credit": "Heitor Villa-Lobos, arr. Margie S. Antrobus"
+    },
+    {
+      "kind": "verk",
+      "label": "Coventry Variations",
+      "credit": "Bramwell Tovey"
+    }
+  ]
 }
