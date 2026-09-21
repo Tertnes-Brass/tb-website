@@ -280,7 +280,7 @@ content:
         format: json
         filename:
           template: "{id}.json"
-          field: create
+          field: false
         view:
           primary: title
           fields: [title, date, status, published]
@@ -416,7 +416,7 @@ content:
         format: json
         filename:
           template: "{id}.json"
-          field: create
+          field: false
         view:
           primary: title
           fields: [title, category, date, featured, published]
@@ -496,14 +496,14 @@ content:
         format: json
         filename:
           template: "{id}.json"
-          field: create
+          field: false
         view:
           primary: name
-          fields: [name, role, section, published]
-          search: [name, role, section]
-          sort: [sortOrder, name]
+          fields: [name, section, role, published]
+          search: [name, section, role]
+          sort: [section, role, name, sortOrder]
           default:
-            sort: sortOrder
+            sort: section
             order: asc
         fields:
           - name: id
@@ -519,10 +519,32 @@ content:
             required: true
             options:
               maxlength: 100
+          - name: section
+            label: Gruppe
+            type: select
+            required: true
+            description: "Besetningsgruppen medlemmet tilhører."
+            options:
+              values:
+                - name: Kornett
+                  label: Kornett
+                - name: Horn/Flygelhorn
+                  label: Horn/Flygelhorn
+                - name: Bariton
+                  label: Bariton
+                - name: Trombone
+                  label: Trombone
+                - name: Euphonium
+                  label: Euphonium
+                - name: Tuba
+                  label: Tuba
+                - name: Slagverk
+                  label: Slagverk
           - name: role
             label: Rolle eller instrument
             type: select
             required: true
+            description: "Alle roller vises uansett valgt gruppe – Pages CMS støtter ikke å begrense denne lista til rollene i gruppen over."
             options:
               values:
                 - name: Soprano
@@ -565,27 +587,6 @@ content:
                   label: Bb-Bass
                 - name: Slagverk
                   label: Slagverk
-          - name: section
-            label: Gruppe
-            type: select
-            required: true
-            description: "Besetningsgruppen medlemmet tilhører."
-            options:
-              values:
-                - name: Kornett
-                  label: Kornett
-                - name: Horn/Flygelhorn
-                  label: Horn/Flygelhorn
-                - name: Bariton
-                  label: Bariton
-                - name: Trombone
-                  label: Trombone
-                - name: Euphonium
-                  label: Euphonium
-                - name: Tuba
-                  label: Tuba
-                - name: Slagverk
-                  label: Slagverk
           - name: bio
             label: Kort presentasjon
             type: text
@@ -609,7 +610,9 @@ content:
             type: boolean
             required: true
           - name: sortOrder
-            label: Rekkefølge
+            label: Rekkefølge (valgfri overstyring)
             type: number
-            required: true
-            description: Laveste tall vises først.
+            description: >-
+              Nettsiden sorterer automatisk etter gruppe, rolle og navn – la
+              stå tomt. Fyll bare ut dette for å overstyre rekkefølgen blant
+              medlemmer med samme rolle (lavest tall først).

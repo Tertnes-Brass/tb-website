@@ -42,14 +42,44 @@ export interface NewsContent {
   published: boolean
 }
 
-export type MemberSection =
-  | 'Kornett'
-  | 'Horn/Flygelhorn'
-  | 'Bariton'
-  | 'Trombone'
-  | 'Euphonium'
-  | 'Tuba'
-  | 'Slagverk'
+/** Besetningsgrupper, i den rekkefølgen de skal vises på nettsiden.
+ *  Må holdes i sync med `section`-dropdownen i `.pages.yml`. */
+export const MEMBER_SECTIONS = [
+  'Kornett',
+  'Horn/Flygelhorn',
+  'Bariton',
+  'Trombone',
+  'Euphonium',
+  'Tuba',
+  'Slagverk',
+] as const
+
+export type MemberSection = (typeof MEMBER_SECTIONS)[number]
+
+/** Roller, i besetningsrekkefølge innad i hver gruppe. Må holdes i sync med
+ *  `role`-dropdownen i `.pages.yml`. */
+export const MEMBER_ROLES = [
+  'Soprano',
+  'Principal',
+  'Solokornett',
+  'Repiano',
+  '2. Kornett',
+  '3. Kornett',
+  'Flygelhorn',
+  'Solohorn',
+  '1. Horn',
+  '2. Horn',
+  '1. Bariton',
+  '2. Bariton',
+  '1. Trombone',
+  '2. Trombone',
+  'Basstrombone',
+  'Solo Euphonium',
+  'Tutti Euphonium',
+  'Eb-Bass',
+  'Bb-Bass',
+  'Slagverk',
+] as const
 
 export interface MemberContent {
   id: string
@@ -60,7 +90,9 @@ export interface MemberContent {
   image?: string
   imageAlt?: string
   published: boolean
-  sortOrder: number
+  /** Manuell overstyring av rekkefølgen blant medlemmer med samme rolle.
+   *  Vanligvis ubrukt – rekkefølgen avgjøres av gruppe, rolle og navn. */
+  sortOrder?: number
 }
 
 export interface HomePageContent {
@@ -138,9 +170,32 @@ export const news = Object.values(newsModules)
   .filter((article) => article.published)
   .toSorted((a, b) => b.date.localeCompare(a.date))
 
+/** Sorts by section, then role, in besetningsrekkefølge, then an optional
+ *  manual `sortOrder` override, then name. This means new members slot in
+ *  correctly by default without anyone having to guess a free number. */
+function compareMembers(a: MemberContent, b: MemberContent): number {
+  const sectionDiff = MEMBER_SECTIONS.indexOf(a.section) - MEMBER_SECTIONS.indexOf(b.section)
+  if (sectionDiff !== 0) {
+    return sectionDiff
+  }
+
+  const roleDiff =
+    MEMBER_ROLES.indexOf(a.role as (typeof MEMBER_ROLES)[number]) -
+    MEMBER_ROLES.indexOf(b.role as (typeof MEMBER_ROLES)[number])
+  if (roleDiff !== 0) {
+    return roleDiff
+  }
+
+  if (a.sortOrder !== b.sortOrder) {
+    return (a.sortOrder ?? Number.POSITIVE_INFINITY) - (b.sortOrder ?? Number.POSITIVE_INFINITY)
+  }
+
+  return a.name.localeCompare(b.name, 'nb-NO')
+}
+
 export const members = Object.values(memberModules)
   .filter((member) => member.published)
-  .toSorted((a, b) => a.sortOrder - b.sortOrder)
+  .toSorted(compareMembers)
 
 export const homePage: HomePageContent = homePageData
 

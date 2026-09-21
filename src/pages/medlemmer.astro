@@ -10,8 +10,8 @@ import './medlemmer.css'
 const PORTRAIT_WIDTHS = [96, 160, 240]
 const PORTRAIT_SIZES = '80px'
 
-/* `members` is already sorted by sortOrder, so grouping preserves the
-   editors' intended section order (Kornett → Horn → ... → Slagverk)
+/* `members` is already sorted by section, so grouping consecutive entries
+   preserves the besetningsrekkefølge (Kornett → Horn → ... → Slagverk)
    without hardcoding a section list here. */
 const sections: Array<{ section: string; members: MemberContent[] }> = []
 for (const member of members) {
