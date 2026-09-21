@@ -42,14 +42,23 @@ export interface NewsContent {
   published: boolean
 }
 
+export type MemberSection =
+  | 'Kornett'
+  | 'Horn/Flygelhorn'
+  | 'Bariton'
+  | 'Trombone'
+  | 'Euphonium'
+  | 'Tuba'
+  | 'Slagverk'
+
 export interface MemberContent {
   id: string
   name: string
   role: string
-  section: string
-  bio: string
-  image: string
-  imageAlt: string
+  section: MemberSection
+  bio?: string
+  image?: string
+  imageAlt?: string
   published: boolean
   sortOrder: number
 }

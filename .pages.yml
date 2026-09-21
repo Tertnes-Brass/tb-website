@@ -521,15 +521,71 @@ content:
               maxlength: 100
           - name: role
             label: Rolle eller instrument
-            type: string
+            type: select
             required: true
             options:
-              maxlength: 100
+              values:
+                - name: Soprano
+                  label: Soprano
+                - name: Principal
+                  label: Principal
+                - name: Solokornett
+                  label: Solokornett
+                - name: Repiano
+                  label: Repiano
+                - name: 2. Kornett
+                  label: 2. Kornett
+                - name: 3. Kornett
+                  label: 3. Kornett
+                - name: Flygelhorn
+                  label: Flygelhorn
+                - name: Solohorn
+                  label: Solohorn
+                - name: 1. Horn
+                  label: 1. Horn
+                - name: 2. Horn
+                  label: 2. Horn
+                - name: 1. Bariton
+                  label: 1. Bariton
+                - name: 2. Bariton
+                  label: 2. Bariton
+                - name: 1. Trombone
+                  label: 1. Trombone
+                - name: 2. Trombone
+                  label: 2. Trombone
+                - name: Basstrombone
+                  label: Basstrombone
+                - name: Solo Euphonium
+                  label: Solo Euphonium
+                - name: Tutti Euphonium
+                  label: Tutti Euphonium
+                - name: Eb-Bass
+                  label: Eb-Bass
+                - name: Bb-Bass
+                  label: Bb-Bass
+                - name: Slagverk
+                  label: Slagverk
           - name: section
             label: Gruppe
-            type: string
+            type: select
             required: true
-            description: "Eksempel: Kornetter, Horn eller Kunstnerisk ledelse."
+            description: "Besetningsgruppen medlemmet tilhører."
+            options:
+              values:
+                - name: Kornett
+                  label: Kornett
+                - name: Horn/Flygelhorn
+                  label: Horn/Flygelhorn
+                - name: Bariton
+                  label: Bariton
+                - name: Trombone
+                  label: Trombone
+                - name: Euphonium
+                  label: Euphonium
+                - name: Tuba
+                  label: Tuba
+                - name: Slagverk
+                  label: Slagverk
           - name: bio
             label: Kort presentasjon
             type: text

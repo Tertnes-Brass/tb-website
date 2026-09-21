@@ -1,30 +1,88 @@
 ---
+import { Image } from 'astro:assets'
+import Users from '@lucide/astro/icons/users'
+import UserRound from '@lucide/astro/icons/user-round'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import PlaceholderPage from '../components/PlaceholderPage.astro'
-import { members } from '../content/content'
+import { members, type MemberContent } from '../content/content'
+import { resolveImage } from '../lib/images'
+import './medlemmer.css'
+
+const PORTRAIT_WIDTHS = [96, 160, 240]
+const PORTRAIT_SIZES = '80px'
+
+/* `members` is already sorted by sortOrder, so grouping preserves the
+   editors' intended section order (Kornett → Horn → ... → Slagverk)
+   without hardcoding a section list here. */
+const sections: Array<{ section: string; members: MemberContent[] }> = []
+for (const member of members) {
+  const group = sections.at(-1)
+  if (group && group.section === member.section) {
+    group.members.push(member)
+  } else {
+    sections.push({ section: member.section, members: [member] })
+  }
+}
 ---
 
-<BaseLayout title="Medlemmer" description="Medlemmer i Tertnes Brass.">
-  <PlaceholderPage
-    title="Medlemmer"
-    description="Medlemmer som er publisert i korpsets medlemsoversikt."
-  >
-    {
-      members.length > 0 ? (
-        <ul class="placeholder-page-list">
-          {members.map((member) => (
-            <li class="placeholder-page-list-item">
-              <p class="placeholder-page-item-meta">{member.section}</p>
-              <h2 class="placeholder-page-item-title">{member.name}</h2>
-              <p class="placeholder-page-item-description">
-                {member.role}{member.bio ? ` · ${member.bio}` : ''}
-              </p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="placeholder-page-empty">Medlemsoversikten blir oppdatert.</p>
-      )
-    }
-  </PlaceholderPage>
+<BaseLayout title="Medlemmer" description="Møt medlemmene i Tertnes Brass.">
+  <main class="members-page">
+    <div class="members-container">
+      <header class="members-header">
+        <p class="members-badge">
+          <Users size={16} aria-hidden="true" />
+          Korpset
+        </p>
+        <h1 class="members-title">Medlemmer</h1>
+        <p class="members-description">
+          Musikerne som utgjør Tertnes Brass, gruppert etter besetning.
+        </p>
+      </header>
+
+      {
+        sections.length > 0 ? (
+          sections.map((group) => {
+            const headingId = `seksjon-${group.section.toLowerCase().replaceAll(/\s+/g, '-')}`
+            return (
+            <section class="members-section" aria-labelledby={headingId}>
+              <h2 class="members-section-title" id={headingId}>
+                {group.section}
+              </h2>
+              <ul class="members-grid">
+                {group.members.map((member) => {
+                  const image = resolveImage(member.image)
+                  return (
+                    <li class="member-card">
+                      <div class="member-portrait">
+                        {image ? (
+                          <Image
+                            src={image}
+                            alt={member.imageAlt || member.name}
+                            widths={PORTRAIT_WIDTHS}
+                            sizes={PORTRAIT_SIZES}
+                            class="member-portrait-image"
+                          />
+                        ) : (
+                          <UserRound
+                            size={28}
+                            class="member-portrait-fallback"
+                            aria-hidden="true"
+                          />
+                        )}
+                      </div>
+                      <p class="member-name">{member.name}</p>
+                      <p class="member-role">{member.role}</p>
+                      {member.bio && <p class="member-bio">{member.bio}</p>}
+                    </li>
+                  )
+                })}
+              </ul>
+            </section>
+            )
+          })
+        ) : (
+          <p class="members-empty">Medlemsoversikten blir oppdatert.</p>
+        )
+      }
+    </div>
+  </main>
 </BaseLayout>
