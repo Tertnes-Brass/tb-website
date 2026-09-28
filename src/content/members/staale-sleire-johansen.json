@@ -4,5 +4,6 @@
   "role": "1. Bariton",
   "section": "Bariton",
   "published": true,
-  "sortOrder": 18
+  "sortOrder": 18,
+  "image": "/src/assets/bilder/stale.jpg"
 }
