@@ -4,5 +4,6 @@
   "role": "Slagverk",
   "section": "Slagverk",
   "published": true,
-  "sortOrder": 28
+  "sortOrder": 28,
+  "image": "/src/assets/bilder/kim.jpg"
 }
