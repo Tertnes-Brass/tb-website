@@ -4,5 +4,6 @@
   "role": "Solokornett",
   "section": "Kornett",
   "published": true,
-  "sortOrder": 3
+  "sortOrder": 3,
+  "image": "/src/assets/bilder/ida.jpg"
 }
