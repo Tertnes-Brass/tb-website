@@ -4,5 +4,6 @@
   "role": "Principal",
   "section": "Kornett",
   "published": true,
-  "sortOrder": 2
+  "sortOrder": 2,
+  "image": "/src/assets/bilder/stefan.jpg"
 }
