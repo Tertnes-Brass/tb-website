@@ -4,5 +4,6 @@
   "role": "Slagverk",
   "section": "Slagverk",
   "published": true,
-  "sortOrder": 30
+  "sortOrder": 30,
+  "image": "/src/assets/bilder/nina-mari.jpg"
 }
