@@ -4,5 +4,6 @@
   "role": "Solokornett",
   "section": "Kornett",
   "published": true,
-  "sortOrder": 4
+  "sortOrder": 4,
+  "image": "/src/assets/bilder/sindre.jpg"
 }
