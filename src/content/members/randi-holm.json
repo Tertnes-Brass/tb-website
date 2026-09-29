@@ -4,5 +4,6 @@
   "role": "Flygelhorn",
   "section": "Horn/Flygelhorn",
   "published": true,
-  "sortOrder": 14
+  "sortOrder": 14,
+  "image": "/src/assets/bilder/randi.jpg"
 }
