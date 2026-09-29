@@ -4,5 +4,6 @@
   "role": "Slagverk",
   "section": "Slagverk",
   "published": true,
-  "sortOrder": 31
+  "sortOrder": 31,
+  "image": "/src/assets/bilder/asbjorn.jpg"
 }
