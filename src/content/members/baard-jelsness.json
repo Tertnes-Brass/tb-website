@@ -4,5 +4,6 @@
   "role": "Solo Euphonium",
   "section": "Euphonium",
   "published": true,
-  "sortOrder": 23
+  "sortOrder": 23,
+  "image": "/src/assets/bilder/bard.jpg"
 }
