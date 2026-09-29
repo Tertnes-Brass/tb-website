@@ -4,5 +4,6 @@
   "role": "Solohorn",
   "section": "Horn/Flygelhorn",
   "published": true,
-  "sortOrder": 15
+  "sortOrder": 15,
+  "image": "/src/assets/bilder/alice.jpg"
 }
