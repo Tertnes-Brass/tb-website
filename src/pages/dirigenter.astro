@@ -1,0 +1,36 @@
+---
+import { Image } from 'astro:assets'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import AboutNavigation from '../components/AboutNavigation.astro'
+import { conductors } from '../data/conductors'
+import './om-oss.css'
+---
+
+<BaseLayout title="Dirigenter" description="Møt Margie Antrobus, dirigent for sesongen 2026/27, og Katrina Marzella, dirigent for Tertnes Brass under NM Brass 2027.">
+  <main class="about-page">
+    <div class="about-container">
+      <AboutNavigation />
+      <header class="about-header">
+        <h1>Dirigenter</h1>
+        <p>Møt dirigentene som leder Tertnes Brass i sesongen 2026/27 og under NM Brass 2027.</p>
+      </header>
+      <div class="about-grid">
+        {conductors.map((conductor) => (
+          <article class="about-card">
+            <Image
+              src={conductor.image}
+              alt={conductor.imageAlt}
+              widths={[320, 480, 640, 960]}
+              sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 500px"
+              class="conductor-portrait"
+            />
+            <p class="about-role">{conductor.role}</p>
+            <h2>{conductor.name}</h2>
+            {conductor.biography.map((paragraph) => <p>{paragraph}</p>)}
+            <a class="about-source" href={conductor.sourceUrl}>{conductor.sourceLabel} ↗</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </main>
+</BaseLayout>

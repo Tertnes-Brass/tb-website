@@ -1,8 +1,29 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import PlaceholderPage from '../components/PlaceholderPage.astro'
+import AboutNavigation from '../components/AboutNavigation.astro'
+import './om-oss.css'
 ---
 
-<BaseLayout title="Om oss" description="Bli kjent med Tertnes Brass og historien vår siden 1964.">
-  <PlaceholderPage title="Om oss" />
+<BaseLayout title="Om oss" description="Bli kjent med Tertnes Brass, medlemmene og dirigentene våre.">
+  <main class="about-page">
+    <div class="about-container">
+      <AboutNavigation />
+      <header class="about-header">
+        <h1>Om oss</h1>
+        <p>Tertnes Brass er et brassband fra Bergen, stiftet i 1964. Bli kjent med menneskene som skaper musikken vår.</p>
+      </header>
+      <div class="about-grid">
+        <a class="about-card about-card-link" href="/medlemmer/">
+          <h2>Medlemmer</h2>
+          <p>Møt musikerne i Tertnes Brass og se besetningen vår.</p>
+          <span>Se medlemmene →</span>
+        </a>
+        <a class="about-card about-card-link" href="/dirigenter/">
+          <h2>Dirigenter</h2>
+          <p>Bli kjent med Margie Antrobus og Katrina Marzella.</p>
+          <span>Møt dirigentene →</span>
+        </a>
+      </div>
+    </div>
+  </main>
 </BaseLayout>

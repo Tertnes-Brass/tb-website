@@ -4,19 +4,20 @@ import './Header.css'
 interface NavigationItem {
   href: string
   label: string
+  children?: NavigationItem[]
 }
 
 const primaryNavigation: NavigationItem[] = [
   { href: '/', label: 'Hjem' },
   { href: '/program/', label: 'Program' },
   { href: '/nyheter/', label: 'Nyheter' },
-  { href: '/medlemmer/', label: 'Medlemmer' },
-  { href: '/styret/', label: 'Styret' },
-  { href: '/om-oss/', label: 'Om oss' },
+  { href: '/om-oss/', label: 'Om oss', children: [
+    { href: '/medlemmer/', label: 'Medlemmer' },
+    { href: '/dirigenter/', label: 'Dirigenter' },
+  ] },
 ]
 
 const secondaryNavigation: NavigationItem[] = [
-  { href: '/bli-medlem/', label: 'Bli medlem' },
   { href: '/stott-oss/', label: 'Støtt oss' },
   { href: '/kontakt/', label: 'Kontakt' },
 ]
@@ -47,7 +48,16 @@ const isActive = (href: string): boolean =>
     <nav class="nav" aria-label="Hovedmeny">
       {
         primaryNavigation.map((item) => (
-          <a
+          item.children ? (
+            <details class="dropdown">
+              <summary class:list={['dropdown-toggle', { active: isActive(item.href) || item.children.some((child) => isActive(child.href)) }]}>Om oss</summary>
+              <div class="dropdown-menu">
+                {[{ href: item.href, label: 'Om Tertnes Brass' }, ...item.children].map((child) => (
+                  <a href={child.href} class:list={['dropdown-item', { active: isActive(child.href) }]} aria-current={isActive(child.href) ? 'page' : undefined}>{child.label}</a>
+                ))}
+              </div>
+            </details>
+          ) : <a
             href={item.href}
             class:list={['nav-link', { active: isActive(item.href) }]}
             aria-current={isActive(item.href) ? 'page' : undefined}
@@ -91,8 +101,6 @@ const isActive = (href: string): boolean =>
         </span>
       </button>
 
-      <a href="/bli-medlem/" class="cta-button desktop-cta">Bli medlem</a>
-
       <button
         class="hamburger-button"
         type="button"
@@ -126,13 +134,13 @@ const isActive = (href: string): boolean =>
             >
               {item.label}
             </a>
+            {item.children && <ul class="mobile-subnav">
+              {item.children.map((child) => <li><a href={child.href} class:list={['mobile-nav-link', { active: isActive(child.href) }]} aria-current={isActive(child.href) ? 'page' : undefined}>{child.label}</a></li>)}
+            </ul>}
           </>
         ))
       }
     </nav>
-    <div class="mobile-menu-footer">
-      <a href="/bli-medlem/" class="cta-button mobile-cta">Bli medlem</a>
-    </div>
   </aside>
 </header>
 

@@ -97,14 +97,9 @@ export interface MemberContent {
 
 export interface HomePageContent {
   hero: {
-    headingLead: string
-    headingBurgundy: string
-    headingMiddle: string
-    headingGold: string
-    headingSuffix: string
+    heading: string
     description: string
     primaryButtonLabel: string
-    secondaryButtonLabel: string
     facts: string
   }
   events: {

@@ -131,7 +131,8 @@
   color: var(--burgundy);
 }
 
-.dropdown-item.active {
+.dropdown-item.active,
+.dropdown-toggle.active {
   background-color: var(--burgundy-pastel);
   color: var(--burgundy);
 }
@@ -442,6 +443,12 @@
   height: 1px;
   background-color: var(--burgundy-pastel);
   margin: var(--spacing-sm) var(--spacing-md);
+}
+
+.mobile-subnav {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 var(--spacing-lg);
 }
 
 .mobile-menu-footer {

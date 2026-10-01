@@ -1,0 +1,15 @@
+---
+import './AboutNavigation.css'
+
+const links = [
+  { href: '/om-oss/', label: 'Om oss' },
+  { href: '/medlemmer/', label: 'Medlemmer' },
+  { href: '/dirigenter/', label: 'Dirigenter' },
+]
+---
+
+<nav class="about-navigation" aria-label="Om korpset">
+  {links.map((link) => (
+    <a href={link.href} aria-current={Astro.url.pathname === link.href ? 'page' : undefined}>{link.label}</a>
+  ))}
+</nav>

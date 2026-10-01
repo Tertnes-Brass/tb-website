@@ -36,41 +36,12 @@ content:
             type: object
             required: true
             fields:
-              - name: headingLead
-                label: Overskrift – innledning
+              - name: heading
+                label: Overskrift
                 type: string
                 required: true
-                description: "Teksten før det burgunderfargede ordet. Eksempel: Et."
                 options:
-                  maxlength: 40
-              - name: headingBurgundy
-                label: Overskrift – burgunder tekst
-                type: string
-                required: true
-                description: Dette ordet eller uttrykket vises i burgunder.
-                options:
-                  maxlength: 40
-              - name: headingMiddle
-                label: Overskrift – midttekst
-                type: string
-                required: true
-                description: Teksten mellom den burgunderfargede og gullfargede teksten.
-                options:
-                  maxlength: 80
-              - name: headingGold
-                label: Overskrift – gulltekst
-                type: string
-                required: true
-                description: Dette ordet eller uttrykket vises i gull.
-                options:
-                  maxlength: 40
-              - name: headingSuffix
-                label: Overskrift – avslutning
-                type: string
-                required: true
-                description: "Teksten rett etter gullteksten. Ta med bindestrek hvis den skal brukes."
-                options:
-                  maxlength: 60
+                  maxlength: 260
               - name: description
                 label: Introduksjon
                 type: text
@@ -83,13 +54,6 @@ content:
                 type: string
                 required: true
                 description: Knappen går alltid til Program.
-                options:
-                  maxlength: 30
-              - name: secondaryButtonLabel
-                label: Tekst på medlemsknappen
-                type: string
-                required: true
-                description: Knappen går alltid til Bli medlem.
                 options:
                   maxlength: 30
               - name: facts

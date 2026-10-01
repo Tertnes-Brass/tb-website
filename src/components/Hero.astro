@@ -11,10 +11,7 @@ const { hero } = homePage
   <div class="hero-container">
     <div class="hero-content">
       <h1 id="hero-heading" class="hero-heading">
-        {hero.headingLead}{' '}
-        <span class="highlight-burgundy">{hero.headingBurgundy}</span>{' '}
-        {hero.headingMiddle}{' '}
-        <span class="highlight-gold">{hero.headingGold}</span>{hero.headingSuffix}
+        {hero.heading}
       </h1>
       <p class="hero-lede">{hero.description}</p>
       <div class="hero-buttons">
@@ -24,7 +21,6 @@ const { hero } = homePage
             <path d="M5 12h14M13 6l6 6-6 6"></path>
           </svg>
         </a>
-        <a href="/bli-medlem/" class="hero-btn hero-btn-outline">{hero.secondaryButtonLabel}</a>
       </div>
       <p class="hero-facts">{hero.facts}</p>
     </div>

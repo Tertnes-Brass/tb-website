@@ -3,6 +3,7 @@ import { Image } from 'astro:assets'
 import Users from '@lucide/astro/icons/users'
 import UserRound from '@lucide/astro/icons/user-round'
 import BaseLayout from '../layouts/BaseLayout.astro'
+import AboutNavigation from '../components/AboutNavigation.astro'
 import { members, type MemberContent } from '../content/content'
 import { resolveImage } from '../lib/images'
 import './medlemmer.css'
@@ -27,6 +28,7 @@ for (const member of members) {
 <BaseLayout title="Medlemmer" description="Møt medlemmene i Tertnes Brass.">
   <main class="members-page">
     <div class="members-container">
+      <AboutNavigation />
       <header class="members-header">
         <p class="members-badge">
           <Users size={16} aria-hidden="true" />

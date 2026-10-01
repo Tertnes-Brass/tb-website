@@ -5,7 +5,6 @@
   --hero-text: var(--text);
   --hero-text-soft: var(--text-soft);
   --hero-text-muted: var(--text-soft);
-  --hero-burgundy: var(--burgundy);
   --hero-gold: var(--gold-text);
   --hero-primary-bg: var(--burgundy);
   --hero-primary-hover: var(--burgundy-soft);
@@ -27,7 +26,6 @@
   --hero-text: var(--stage-text);
   --hero-text-soft: var(--stage-text-soft);
   --hero-text-muted: var(--stage-text-muted);
-  --hero-burgundy: var(--stage-burgundy);
   --hero-gold: var(--stage-gold);
   --hero-primary-bg: var(--stage-gold);
   --hero-primary-hover: var(--gold-soft);
@@ -78,14 +76,7 @@
   letter-spacing: -0.045em;
   color: var(--hero-text);
   text-wrap: balance;
-}
-
-.highlight-burgundy {
-  color: var(--hero-burgundy);
-}
-
-.highlight-gold {
-  color: var(--hero-gold);
+  overflow-wrap: anywhere;
 }
 
 .hero-lede {
